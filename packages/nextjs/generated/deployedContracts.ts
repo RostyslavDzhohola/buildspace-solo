@@ -412,7 +412,7 @@ const contracts = {
       name: "polygonMumbai",
       contracts: {
         HamletBook: {
-          address: "0xaA90CCf340D17EF063eCc512d57a06f333998ddD",
+          address: "0x1e833C6efd2Aa34d88615Fe05720f6f0cC2BbB0A",
           abi: [
             {
               inputs: [],

@@ -36,7 +36,7 @@ const Minting: NextPage = () => {
         >
           {isMining ? "Minting..." : "Mint NFT"}
         </button>
-        <a href="https://submarine.pinata.cloud/p9jgHfw69YiKLsdZgseBgw" target="_blank" rel="noopener noreferrer">
+        <a href="https://submarine.pinata.cloud/dyHju6Vuiezd75yEE7fJLD" target="_blank" rel="noopener noreferrer">
           <button className="btn btn-secondary">Access Book</button>
         </a>
       </div>

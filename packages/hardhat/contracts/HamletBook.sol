@@ -16,7 +16,7 @@ contract HamletBook is ERC721, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
-    constructor() ERC721("HamletBook", "HB") {}
+    constructor() ERC721("HamletBook", "HBT") {}
 
     function purchaseBook( ) public {
         uint256 tokenId = _tokenIdCounter.current();
