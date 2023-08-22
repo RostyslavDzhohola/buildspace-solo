@@ -18,7 +18,7 @@ contract HamletBook is ERC721, Ownable {
 
     constructor() ERC721("HamletBook", "HB") {}
 
-    function safeMint( ) public {
+    function purchaseBook( ) public {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
 				_safeMint(msg.sender, tokenId); // Minting the NFT to the sender of the transaction

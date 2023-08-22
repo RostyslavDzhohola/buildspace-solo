@@ -4,11 +4,10 @@ import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
-
 const Minting: NextPage = () => {
   const { writeAsync, isMining } = useScaffoldContractWrite({
     contractName: "HamletBook", // Name of your contract
-    functionName: "safeMint", // Function in your contract responsible for minting
+    functionName: "purchaseBook", // Function in your contract responsible for minting
   });
 
   const handleMintClick = async () => {
@@ -37,7 +36,7 @@ const Minting: NextPage = () => {
         >
           {isMining ? "Minting..." : "Mint NFT"}
         </button>
-        <a href="https://submarine.pinata.cloud/vjy3H4fH7nZZcKXTrEq8xN" target="_blank" rel="noopener noreferrer">
+        <a href="https://submarine.pinata.cloud/p9jgHfw69YiKLsdZgseBgw" target="_blank" rel="noopener noreferrer">
           <button className="btn btn-secondary">Access Book</button>
         </a>
       </div>
