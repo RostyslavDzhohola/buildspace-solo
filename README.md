@@ -3,11 +3,14 @@
 A very rudimentary look of having book scarcity. 
 Here is the link.
 https://slovo-rostyslavdzhohola.vercel.app/mint
+
 When minting, give 5 minutes before trying to access the book.
 You will need a metamask and connection to Mumbai Testnet 
 https://chainlist.org/?search=mumbai&testnets=true
+
 Here is the link with the free testnet Matic
 https://mumbaifaucet.com
+
 Ensure your Metamask is connected to the content website because it will not throw the error if you are not connected.
 https://submarine.pinata.cloud/dyHju6Vuiezd75yEE7fJLD 
 
