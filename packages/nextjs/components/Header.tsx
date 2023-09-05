@@ -60,7 +60,7 @@ export const Header = () => {
       <li>
         <NavLink href="/read">
           <BookOpenIcon className="h-4 w-4" />
-          Library
+          Read a Book
         </NavLink>
       </li>
       <li>

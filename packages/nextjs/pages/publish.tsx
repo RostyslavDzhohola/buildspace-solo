@@ -46,24 +46,26 @@ const Publish: NextPage = () => {
             <label className="block text-lg font-medium py-3">
               How many <i>copies</i> do you want to publish?
             </label>
-            <input type="number" className="block dark:text-black pl-2" min="1" max="10000" />
+            <input type="number" className="block dark:text-black pl-2" min="1" max="10000" placeholder="1000" />
             <label className="block text-lg font-medium py-3">
               How much do you want to <i>charge</i> for each copy?
             </label>
             <span className="mr-2 inline">$</span>
-            <input type="number" className="inline dark:text-black pl-2" min="1" max="100" />
+            <input type="number" className="inline dark:text-black pl-2" min="1" max="100" placeholder="15"/>
             <label className="block text-lg font-medium py-3">
               How much <i>royalties</i> do you want to have with each resale?
             </label>
             <span className="mr-2 inline">%</span>
-            <input type="number" className="inline dark:text-black pl-2" min="0" max="30" step="0.01" />
+            <input type="number" className="inline dark:text-black pl-2" min="0" max="30" step="0.01" placeholder="5" />
           </fieldset>
           <div className="pt-3">
             <hr />
           </div>
-          <button type="submit" className="py-2 px-4 bg-blue-500 text-white rounded">
-            Submit
-          </button>
+          <div className="flex justify-center"> 
+            <button type="submit" className="py-2 px-4 bg-blue-500 text-white rounded">
+              Publish
+            </button>
+          </div>
         </form>
       </div>
     </>
