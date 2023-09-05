@@ -14,13 +14,16 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract HamletBook is ERC721, Ownable {
     using Counters for Counters.Counter;
 
+    uint256 public bookPrice = 0.0092 ether; // Price of the book in ETH
     Counters.Counter private _tokenIdCounter;
 
     constructor() ERC721("HamletBook", "HBT") {}
 
-    function purchaseBook( ) public {
+    function purchaseBook( ) public payable {
+        require(msg.value == bookPrice, "Incorrect price");
+
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
-				_safeMint(msg.sender, tokenId); // Minting the NFT to the sender of the transaction
+		_safeMint(msg.sender, tokenId); // Minting the NFT to the sender of the transaction
     }
 }

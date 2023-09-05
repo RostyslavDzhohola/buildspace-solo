@@ -20,7 +20,7 @@ const ReadingPage: NextPage = () => {
           setSellPrice(parsedPrice);
 
           // Your logic to handle selling here
-          console.log(`Selling for: $${parsedPrice}`);
+          alert(`Selling for: $${parsedPrice}`);
         } else {
           alert("Please enter a valid number.");
         }

@@ -9,6 +9,7 @@ const BuyPage: NextPage = () => {
   const { writeAsync, isMining } = useScaffoldContractWrite({
     contractName: "HamletBook", // Name of your contract
     functionName: "purchaseBook", // Function in your contract responsible for minting
+    value: "0.0092",
   });
   const [purchased, setPurchased] = useState(false); // State to track if the NFT has been minted
 
