@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
@@ -36,6 +37,13 @@ const BuyPage: NextPage = () => {
             {purchased ? "Purchased" : "Buy"}
             {purchased ? "" : <div>$15</div>}
           </button>
+          {purchased ? (
+            <button className="btn btn-secondary">
+              <Link href="/read">Read</Link>
+            </button>
+          ) : (
+            ""
+          )}
           {/* <a href="/books/hamlet.pdf" target="_blank" rel="noopener noreferrer">
             <button className="btn btn-secondary">Read a Book</button>
           </a> */}
