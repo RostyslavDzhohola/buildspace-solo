@@ -46,27 +46,21 @@ export const Header = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink href="/mint">
+        <NavLink href="/buy">
           <BookOpenIcon className="h-4 w-4" />
           Buy a Book
         </NavLink>
       </li>
-      <li>
+      {/* <li>
         <NavLink href="/sell">
           <BookOpenIcon className="h-4 w-4" />
           Sell a Book
         </NavLink>
-      </li>
+      </li> */}
       <li>
         <NavLink href="/read">
           <BookOpenIcon className="h-4 w-4" />
           Read a Book
-        </NavLink>
-      </li>
-      <li>
-        <NavLink href="/debug">
-          <BugAntIcon className="h-4 w-4" />
-          Debug Contracts
         </NavLink>
       </li>
       {/* <li>
@@ -75,12 +69,18 @@ export const Header = () => {
           Example UI
         </NavLink>
       </li> */}
-      <li>
+      {/* <li>
+        <NavLink href="/debug">
+          <BugAntIcon className="h-4 w-4" />
+          Debug Contracts
+        </NavLink>
+      </li> */}
+      {/* <li>
         <NavLink href="/blockexplorer">
           <MagnifyingGlassIcon className="h-4 w-4" />
           Block Explorer
         </NavLink>
-      </li>
+      </li> */}
     </>
   );
 
