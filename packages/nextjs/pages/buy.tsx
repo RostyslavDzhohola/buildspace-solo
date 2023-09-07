@@ -26,7 +26,7 @@ const BuyPage: NextPage = () => {
   return (
     <>
       <MetaHeader title="Mint HamletBook NFT" description="Mint your HamletBook NFT here." />
-      <div className="flex flex-row justify-around">
+      <div className="flex flex-row justify-center gap-x-24">
         <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-start items-center">
           <Image
             src="/hamlet.jpg" // Replace with the actual path to your image
@@ -62,6 +62,7 @@ const BuyPage: NextPage = () => {
             disabled={isMining} // Disable the button while minting
           >
             {isMining ? "Purchased" : "Buy"}
+            <div>$15</div>
           </button>
           {/* <a href="https://submarine.pinata.cloud/dyHju6Vuiezd75yEE7fJLD" target="_blank" rel="noopener noreferrer">
             <button className="btn btn-secondary">Read a Book</button>
