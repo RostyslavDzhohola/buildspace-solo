@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { useLocalStorage } from "usehooks-ts";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { ContractUI } from "~~/components/scaffold-eth";
+import { useScaffoldEventSubscriber } from "~~/hooks/scaffold-eth/useScaffoldEventSubscriber";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 import { getContractNames } from "~~/utils/scaffold-eth/contractNames";
 
@@ -15,11 +16,28 @@ const Debug: NextPage = () => {
     contractNames[0],
   );
 
+  const [bookAddresses, setBookAddresses] = useState<string[]>([]);
+
   useEffect(() => {
     if (!contractNames.includes(selectedContract)) {
       setSelectedContract(contractNames[0]);
     }
   }, [selectedContract, setSelectedContract]);
+
+  useScaffoldEventSubscriber({
+    contractName: "BookFactory",
+    eventName: "BookCreated",
+    listener: logs => {
+      logs.forEach(log => {
+        const bookAddress = log.args.bookAddress;
+        if (bookAddress) {
+          setBookAddresses(prevState => [...prevState, bookAddress]);
+          console.log("BookCreated event triggered and here is the book NFT address", bookAddress);
+        }
+      });
+      console.log("BookCreated event triggered", logs);
+    },
+  });
 
   return (
     <>
