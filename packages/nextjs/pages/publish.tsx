@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 
@@ -8,6 +9,10 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 };
 
 const Publish: NextPage = () => {
+  const [bookFile, setBookFile] = useState<File | null>(null);
+  const [coverFile, setCoverFile] = useState<File | null>(null);
+
+
   return (
     <>
       <MetaHeader
