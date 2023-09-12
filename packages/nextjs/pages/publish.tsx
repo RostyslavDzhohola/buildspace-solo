@@ -12,8 +12,10 @@ const Publish: NextPage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (coverFile) {
-      const coverIPFSURL = await storeOnIPFS(coverFile, "Your Cover Title", "Your Cover Description");
-      alert(`Your cover has been uploaded. Cover IPFS URL: ${coverIPFSURL}`);
+      const coverIPFSURL = await storeOnIPFS(coverFile, bookName, bookDescription);
+      alert(
+        `Your cover has been uploaded. Cover IPFS URL -> ${coverIPFSURL},  Book name -> ${bookName}, Book description -> ${bookDescription}`,
+      );
     } else {
       alert("Cover file is required");
     }
@@ -30,6 +32,7 @@ const Publish: NextPage = () => {
     const file = event.target.files?.[0];
     if (file) {
       setCoverFile(file);
+      console.log("File name: ", file.name);
     }
   };
 
@@ -66,6 +69,9 @@ const Publish: NextPage = () => {
               onChange={e => setBookDescription(e.target.value)}
             />
           </fieldset>
+          <div className="pt-3">
+            <hr />
+          </div>
           <fieldset className="space-y-2">
             <label className="block text-lg font-medium pb-3 pt-2">
               Upload your <i>book</i> file here
@@ -74,9 +80,6 @@ const Publish: NextPage = () => {
             <div className="w-full h-32 flex items-center justify-center bg-gray-200 border-2 border-dashed border-gray-400 text-gray-600 cursor-pointer hover:bg-gray-300">
               Drag & Drop File Here
             </div>
-            {/* <div className="pt-3">
-              <hr />
-            </div> */}
             <label className="block text-lg font-medium py-3">
               Upload your book <i>cover</i> here
             </label>
