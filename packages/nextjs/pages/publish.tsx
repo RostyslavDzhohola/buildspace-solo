@@ -2,12 +2,22 @@ import React, { useState } from "react";
 import { storeOnIPFS } from "./helper/nftStorageHelper";
 import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 const Publish: NextPage = () => {
   const [bookFile, setBookFile] = useState<File | null>(null);
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [bookName, setBookName] = useState<string>("");
   const [bookDescription, setBookDescription] = useState<string>("");
+  const [bookPrice, setBookPrice] = useState<number>(0);
+  const [bookURI, setBookURI] = useState<string>("");
+  const [bookSymbol, setBookSymbol] = useState<string>("");
+
+  const { writeAsync: createBooAsync, isMining } = useScaffoldContractWrite({
+    contractName: "BookFactory", // Name of your contract
+    functionName: "createBook", // Function in your contract responsible for minting
+    args: [bookName, bookSymbol, bookPrice, bookURI],
+  });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -16,6 +26,7 @@ const Publish: NextPage = () => {
       alert(
         `Your cover has been uploaded. Cover IPFS URL -> ${coverIPFSURL},  Book name -> ${bookName}, Book description -> ${bookDescription}`,
       );
+      createBooAsync();
     } else {
       alert("Cover file is required");
     }
@@ -100,7 +111,14 @@ const Publish: NextPage = () => {
               How much do you want to <i>charge</i> for each copy?
             </label>
             <span className="mr-2 inline">$</span>
-            <input type="number" className="inline dark:text-black pl-2" min="1" max="100" placeholder="15" />
+            <input
+              type="number"
+              className="inline dark:text-black pl-2"
+              min="1"
+              max="100"
+              placeholder="15"
+              onChange={e => setBookPrice(e.target.value)}
+            />
             <label className="block text-lg font-medium py-3">
               How much <i>royalties</i> do you want to have with each resale?
             </label>
@@ -111,7 +129,7 @@ const Publish: NextPage = () => {
             <hr />
           </div>
           <div className="flex justify-center">
-            <button type="submit" className="py-2 px-4 bg-blue-500 text-white rounded">
+            <button type="submit" className="py-2 px-4 bg-blue-500 text-white rounded hover:scale-110 focus:scale-100">
               Publish
             </button>
           </div>
