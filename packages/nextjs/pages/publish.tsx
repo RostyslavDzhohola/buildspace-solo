@@ -57,6 +57,7 @@ const Publish: NextPage = () => {
   };
 
   const handleBookFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fileInput = event.target;
     const file = event.target.files?.[0];
     if (file) {
       const mimeType = file.type;
@@ -64,6 +65,8 @@ const Publish: NextPage = () => {
         // Modify according to your valid mime types for books
         setBookFile(file);
       } else {
+        setBookFile(null);
+        fileInput.value = "";
         console.log("Invalid book file type.");
         alert("Invalid book file type. Please upload a PDF.");
         // Show some error message to the user if you like
@@ -72,6 +75,7 @@ const Publish: NextPage = () => {
   };
 
   const handleCoverFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fileInput = event.target;
     const file = event.target.files?.[0];
     if (file) {
       const mimeType = file.type;
@@ -81,6 +85,8 @@ const Publish: NextPage = () => {
         setCoverURL(url); // Update state
         console.log("File name: ", file.name);
       } else {
+        setCoverFile(null);
+        fileInput.value = "";
         console.log("Invalid cover file type.");
         alert("Invalid cover file type. Please upload a JPG, JPEG, or PNG image.");
         // Show some error message to the user if you like
