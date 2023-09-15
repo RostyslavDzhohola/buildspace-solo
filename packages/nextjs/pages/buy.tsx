@@ -7,14 +7,10 @@ import { useScaffoldContractWrite, useScaffoldEventHistory } from "~~/hooks/scaf
 
 type BookMetadata = {
   bookAddress: string;
+  bookName: string;
+  symbol: string;
+  price: number;
   baseURI: string;
-  additionalData?: {
-    name: string;
-    description: string;
-    symbol: string;
-    price: string;
-    image: string;
-  };
 };
 
 const BuyPage: NextPage = () => {
@@ -28,33 +24,18 @@ const BuyPage: NextPage = () => {
   });
 
   useEffect(() => {
-    const fetchMetadata = async () => {
-      if (data && !isLoading && !error) {
-        try {
-          const newBooksMetadata: Promise<BookMetadata>[] = data.map(async event => {
-            const { bookAddress, baseURI } = event.args;
-            const res = await fetch(new Request(baseURI, { method: "GET", mode: "cors" }));
-            if (res.ok) {
-              const metadata = await res.json();
-              return {
-                bookAddress,
-                baseURI,
-                additionalData: metadata,
-              };
-            } else {
-              throw new Error("Failed to fetch metadata");
-            }
-          });
-
-          const fetchedBooks = await Promise.all(newBooksMetadata);
-          setBooksMetadata(fetchedBooks);
-        } catch (err) {
-          console.error("Error fetching metadata:", err);
-        }
-      }
-    };
-
-    fetchMetadata();
+    if (data && !isLoading && !error) {
+      const newBooksMetadata = data.map(event => {
+        return {
+          bookAddress: event.args.bookAddress,
+          bookName: event.args.tokenName,
+          baseURI: event.args.baseURI,
+          symbol: event.args.symbol,
+          price: Number(event.args.price),
+        };
+      });
+      setBooksMetadata(newBooksMetadata);
+    }
   }, [data, isLoading, error]);
 
   return (
@@ -63,13 +44,15 @@ const BuyPage: NextPage = () => {
       <div className="flex flex-row justify-center gap-x-24">
         <div>
           {booksMetadata.map((book, index) => (
-            <div key={index}>
-              {/* Display book metadata here */}
+            <div className="flex " key={index}>
               Book Address: {book.bookAddress} <br />
-              Book URI: {book.baseURI} <br />
-              Name: {book.additionalData?.name} <br />
-              Description: {book.additionalData?.description} <br />
-              {/* ... */}
+              Book URI: {book.baseURI}
+              <br />
+              Book Name: {book.bookName} <br />
+              Symbol: {book.symbol} <br />
+              Price: {book.price} wei <br />
+
+            ----------------------------------------
             </div>
           ))}
         </div>
