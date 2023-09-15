@@ -1,33 +1,80 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
-import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { useScaffoldContractWrite, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
+
+type BookMetadata = {
+  bookAddress: string;
+  baseURI: string;
+  additionalData?: {
+    name: string;
+    description: string;
+    symbol: string;
+    price: string;
+    image: string;
+  };
+};
 
 const BuyPage: NextPage = () => {
-  const { writeAsync, isMining } = useScaffoldContractWrite({
-    contractName: "HamletBook", // Name of your contract
-    functionName: "purchaseBook", // Function in your contract responsible for minting
-    value: "0.0092",
-  });
-  const [purchased, setPurchased] = useState(false); // State to track if the NFT has been minted
+  // const [purchased, setPurchased] = useState(false); // State to track if the NFT has been minted
+  const [booksMetadata, setBooksMetadata] = useState<BookMetadata[]>([]);
 
-  const handleMintClick = async () => {
-    try {
-      await writeAsync(); // Calls the minting function
-      setPurchased(true); // Updates the state to reflect the minting
-      // Handle success if needed
-    } catch (error) {
-      // Handle error if needed
-    }
-  };
+  const { data, isLoading, error } = useScaffoldEventHistory({
+    contractName: "BookFactory",
+    eventName: "BookCreated",
+    fromBlock: process.env.NEXT_PUBLIC_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_DEPLOY_BLOCK) : 0n, // replace with your starting block
+  });
+
+  useEffect(() => {
+    const fetchMetadata = async () => {
+      if (data && !isLoading && !error) {
+        try {
+          const newBooksMetadata: Promise<BookMetadata>[] = data.map(async event => {
+            const { bookAddress, baseURI } = event.args;
+            const res = await fetch(new Request(baseURI, { method: "GET", mode: "cors" }));
+            if (res.ok) {
+              const metadata = await res.json();
+              return {
+                bookAddress,
+                baseURI,
+                additionalData: metadata,
+              };
+            } else {
+              throw new Error("Failed to fetch metadata");
+            }
+          });
+
+          const fetchedBooks = await Promise.all(newBooksMetadata);
+          setBooksMetadata(fetchedBooks);
+        } catch (err) {
+          console.error("Error fetching metadata:", err);
+        }
+      }
+    };
+
+    fetchMetadata();
+  }, [data, isLoading, error]);
 
   return (
     <>
       <MetaHeader title="Mint HamletBook NFT" description="Mint your HamletBook NFT here." />
       <div className="flex flex-row justify-center gap-x-24">
-        <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-start items-center">
+        <div>
+          {booksMetadata.map((book, index) => (
+            <div key={index}>
+              {/* Display book metadata here */}
+              Book Address: {book.bookAddress} <br />
+              Book URI: {book.baseURI} <br />
+              Name: {book.additionalData?.name} <br />
+              Description: {book.additionalData?.description} <br />
+              {/* ... */}
+            </div>
+          ))}
+        </div>
+
+        {/* <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-start items-center">
           <Image
             src="/hamlet.jpg" // Replace with the actual path to your image
             alt="Hamlet Book" // Provide an appropriate alt description
@@ -45,29 +92,10 @@ const BuyPage: NextPage = () => {
           ) : (
             ""
           )}
-          {/* <a href="/books/hamlet.pdf" target="_blank" rel="noopener noreferrer">
+          <a href="/books/hamlet.pdf" target="_blank" rel="noopener noreferrer">
             <button className="btn btn-secondary">Read a Book</button>
-          </a> */}
-        </div>
-        <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-start items-center">
-          <Image
-            src="/napoleon.jpg" // Replace with the actual path to your image
-            alt="Napolen Book cover" // Provide an appropriate alt description
-            width={200} // Adjust the width as needed
-            height={300} // Adjust the height as needed
-          />
-          <button
-            className="btn btn-primary"
-            onClick={handleMintClick}
-            disabled={isMining} // Disable the button while minting
-          >
-            {isMining ? "Purchased" : "Buy"}
-            <div>$15</div>
-          </button>
-          {/* <a href="https://submarine.pinata.cloud/dyHju6Vuiezd75yEE7fJLD" target="_blank" rel="noopener noreferrer">
-            <button className="btn btn-secondary">Read a Book</button>
-          </a> */}
-        </div>
+          </a>
+        </div> */}
       </div>
     </>
   );
