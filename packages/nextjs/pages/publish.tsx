@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { storeOnIPFS } from "./helper/nftStorageHelper";
 import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
-import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { useNativeCurrencyPrice, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+
+// import { useGlobalState } from "~~/services/store/store";
 
 const Publish: NextPage = () => {
   const [bookFile, setBookFile] = useState<File | null>(null);
@@ -10,23 +13,38 @@ const Publish: NextPage = () => {
   const [bookName, setBookName] = useState<string>("");
   const [bookDescription, setBookDescription] = useState<string>("");
   const [bookPrice, setBookPrice] = useState<number>(0);
+  const [bookPriceInEth, setBookPriceInEth] = useState<bigint>(BigInt(0));
   const [bookURI, setBookURI] = useState<string>("");
   const [bookSymbol, setBookSymbol] = useState<string>("");
+  const [coverURL, setCoverURL] = useState<string>("");
 
-  const { writeAsync: createBooAsync, isMining } = useScaffoldContractWrite({
+  const nativeCurrencyPrice: number = useNativeCurrencyPrice(); // ETH in USD
+
+  // const { nativeCurrencyPrice, setNativeCurrencyPrice } = useGlobalState();
+
+  const { writeAsync: createBooAsync } = useScaffoldContractWrite({
     contractName: "BookFactory", // Name of your contract
     functionName: "createBook", // Function in your contract responsible for minting
-    args: [bookName, bookSymbol, bookPrice, bookURI],
+    args: [bookName, bookSymbol, bookPriceInEth, bookURI],
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!bookFile || !bookName || !bookDescription) {
+      alert("All fields are required");
+      return;
+    }
+
     if (coverFile) {
       const coverIPFSURL = await storeOnIPFS(coverFile, bookName, bookDescription);
+      setBookURI(coverIPFSURL);
+      console.log("bookURI is -> ", coverIPFSURL);
       alert(
         `Your cover has been uploaded. Cover IPFS URL -> ${coverIPFSURL},  Book name -> ${bookName}, Book description -> ${bookDescription}`,
       );
-      createBooAsync();
+      console.log("book price in ETH converted to bigint", bookPriceInEth);
+      createBooAsync({ args: [bookName, bookSymbol, bookPriceInEth, bookURI] });
     } else {
       alert("Cover file is required");
     }
@@ -35,17 +53,41 @@ const Publish: NextPage = () => {
   const handleBookFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setBookFile(file);
+      const mimeType = file.type;
+      if (mimeType.startsWith("application/pdf")) {
+        // Modify according to your valid mime types for books
+        setBookFile(file);
+      } else {
+        console.log("Invalid book file type.");
+        alert("Invalid book file type. Please upload a PDF.");
+        // Show some error message to the user if you like
+      }
     }
   };
 
   const handleCoverFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setCoverFile(file);
-      console.log("File name: ", file.name);
+      const mimeType = file.type;
+      if (mimeType.startsWith("image/jpg") || mimeType.startsWith("image/jpeg") || mimeType.startsWith("image/png")) {
+        setCoverFile(file);
+        const url = URL.createObjectURL(file);
+        setCoverURL(url); // Update state
+        console.log("File name: ", file.name);
+      } else {
+        console.log("Invalid cover file type.");
+        alert("Invalid cover file type. Please upload a JPG, JPEG, or PNG image.");
+        // Show some error message to the user if you like
+      }
     }
   };
+
+  useEffect(() => {
+    if (nativeCurrencyPrice > 0) {
+      const tempBookPriceInEth = (bookPrice / nativeCurrencyPrice) * 1e18; // keeping 18 decimals, like in Solidity
+      setBookPriceInEth(BigInt(Math.round(tempBookPriceInEth)));
+    }
+  }, [bookPrice, nativeCurrencyPrice]);
 
   return (
     <>
@@ -61,7 +103,7 @@ const Publish: NextPage = () => {
         <form className="space-y-4" onSubmit={handleSubmit}>
           <fieldset className="space-y-2">
             <label className="block text-lg font-medium py-3">
-              Enter your book's <i>name</i>
+              Enter your book`s <i>NAME</i>
             </label>
             <input
               type="text"
@@ -71,7 +113,7 @@ const Publish: NextPage = () => {
               onChange={e => setBookName(e.target.value)}
             />
             <label className="block text-lg font-medium py-3">
-              Enter your book`s <i>description</i>
+              Enter your book`s <i>DESCRIPTION</i>
             </label>
             <textarea
               className="block dark:text-black pl-2"
@@ -79,32 +121,48 @@ const Publish: NextPage = () => {
               value={bookDescription}
               onChange={e => setBookDescription(e.target.value)}
             />
+            <label className="block text-lg font-medium py-3">
+              Enter your book`s <i>TICKER</i>
+            </label>
+            <input
+              type="text"
+              className="block dark:text-black pl-2"
+              placeholder="Book symbol"
+              value={bookSymbol}
+              onChange={e => setBookSymbol(e.target.value)}
+            />
           </fieldset>
           <div className="pt-3">
             <hr />
           </div>
           <fieldset className="space-y-2">
             <label className="block text-lg font-medium pb-3 pt-2">
-              Upload your <i>book</i> file here
+              Upload your <i>BOOK</i> file here
             </label>
             <input type="file" className="block" onChange={handleBookFileChange} />
-            <div className="w-full h-32 flex items-center justify-center bg-gray-200 border-2 border-dashed border-gray-400 text-gray-600 cursor-pointer hover:bg-gray-300">
-              Drag & Drop File Here
-            </div>
+            {/* <div className="w-full h-32 flex items-center justify-center bg-gray-200 border-2 border-dashed border-gray-400 text-gray-600 cursor-pointer hover:bg-gray-300">
+              Drag & Drop your Book Here
+            </div> */}
             <label className="block text-lg font-medium py-3">
-              Upload your book <i>cover</i> here
+              Upload your book <i>COVER</i> here
             </label>
             <input type="file" className="block" onChange={handleCoverFileChange} />
-            <div className="w-full h-32 flex items-center justify-center bg-gray-200 border-2 border-dashed border-gray-400 text-gray-600 cursor-pointer hover:bg-gray-300">
-              Drag & Drop File Here
+
+            <div className="relative aspect-w-2 aspect-h-3 w-64 flex items-center justify-center bg-gray-200 border-2 border-dashed border-gray-400 text-gray-600 cursor-pointer hover:bg-gray-300">
+              {coverURL ? (
+                <Image src={coverURL} width={1600} height={2400} alt="Uploaded Cover" />
+              ) : (
+                "Drag & Drop File Here"
+              )}
             </div>
+
             <div className="pt-3">
               <hr />
             </div>
           </fieldset>
           <fieldset className="space-y-2">
             <label className="block text-lg font-medium py-3">
-              How many <i>copies</i> do you want to publish?
+              How many <i>COPIES</i> do you want to publish?
             </label>
             <input type="number" className="block dark:text-black pl-2" min="1" max="10000" placeholder="1000" />
             <label className="block text-lg font-medium py-3">
@@ -117,7 +175,7 @@ const Publish: NextPage = () => {
               min="1"
               max="100"
               placeholder="15"
-              onChange={e => setBookPrice(e.target.value)}
+              onChange={e => setBookPrice(Number(e.target.value))}
             />
             <label className="block text-lg font-medium py-3">
               How much <i>royalties</i> do you want to have with each resale?
