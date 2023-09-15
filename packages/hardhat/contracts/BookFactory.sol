@@ -23,6 +23,7 @@ contract BookFactory {
     event BookCreated(address indexed bookAddress, string tokenName, string symbol, uint256 price, string baseURI);
 
     function createBook(string memory name, string memory symbol, uint256 bookPrice, string memory baseURI) public returns (address) {
+      console.log("Book's baseURI is %s", baseURI);
       // Deploy a new Book contract and set its base URI, book price, and token name
       Book newBook = new Book(name, symbol, bookPrice, baseURI);
 

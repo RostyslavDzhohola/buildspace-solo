@@ -22,7 +22,7 @@ const Publish: NextPage = () => {
 
   // const { nativeCurrencyPrice, setNativeCurrencyPrice } = useGlobalState();
 
-  const { writeAsync: createBooAsync } = useScaffoldContractWrite({
+  const { writeAsync: createBookAsync } = useScaffoldContractWrite({
     contractName: "BookFactory", // Name of your contract
     functionName: "createBook", // Function in your contract responsible for minting
     args: [bookName, bookSymbol, bookPriceInEth, bookURI],
@@ -37,14 +37,20 @@ const Publish: NextPage = () => {
     }
 
     if (coverFile) {
-      const coverIPFSURL = await storeOnIPFS(coverFile, bookName, bookDescription);
-      setBookURI(coverIPFSURL);
-      console.log("bookURI is -> ", coverIPFSURL);
-      alert(
-        `Your cover has been uploaded. Cover IPFS URL -> ${coverIPFSURL},  Book name -> ${bookName}, Book description -> ${bookDescription}`,
-      );
-      console.log("book price in ETH converted to bigint", bookPriceInEth);
-      createBooAsync({ args: [bookName, bookSymbol, bookPriceInEth, bookURI] });
+      try {
+        const coverIPFSURL = await storeOnIPFS(coverFile, bookName, bookDescription, bookSymbol, String(bookPrice));
+        setBookURI(coverIPFSURL);
+        console.log("bookURI is -> ", coverIPFSURL);
+        alert(
+          `Your cover has been uploaded. Cover IPFS URL -> ${coverIPFSURL},  Book name -> ${bookName}, Book description -> ${bookDescription}`,
+        );
+        console.log("book price in ETH converted to bigint", bookPriceInEth);
+        console.log("Arguments being passed to createBooAsync", [bookName, bookSymbol, bookPriceInEth, coverIPFSURL]);
+        await createBookAsync({ args: [bookName, bookSymbol, bookPriceInEth, coverIPFSURL] });
+      } catch (error) {
+        console.error("An error occurred while creating the book:", error);
+        alert("An error occurred. Please check the console for details.");
+      }
     } else {
       alert("Cover file is required");
     }
