@@ -16,12 +16,38 @@ type BookMetadata = {
 const BuyPage: NextPage = () => {
   // const [purchased, setPurchased] = useState(false); // State to track if the NFT has been minted
   const [booksMetadata, setBooksMetadata] = useState<BookMetadata[]>([]);
+  const [fetchedMetadata, setFetchedMetadata] = useState<any[]>([]);
 
   const { data, isLoading, error } = useScaffoldEventHistory({
     contractName: "BookFactory",
     eventName: "BookCreated",
     fromBlock: process.env.NEXT_PUBLIC_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_DEPLOY_BLOCK) : 0n, // replace with your starting block
   });
+
+  async function fetchMetadata(baseURI: string): Promise<any> {
+    try {
+      const res = await fetch(`https://ipfs.io/ipfs/${baseURI}`);
+      if (res.ok) {
+        const data = await res.json();
+        return data;
+      } else {
+        console.error(`Failed to fetch metadata. Status: ${res.status}`);
+        return null;
+      }
+    } catch (error) {
+      console.error("Failed to fetch metadata:", error);
+      return null;
+    }
+  }
+
+  useEffect(() => {
+    const fetchAllMetadata = async () => {
+      const allPromises = booksMetadata.map(book => fetchMetadata(book.baseURI));
+      const allResults = await Promise.all(allPromises);
+      setFetchedMetadata(allResults);
+    };
+    console.log("fetchAllMetadata",  )
+  }, [booksMetadata]);
 
   useEffect(() => {
     if (data && !isLoading && !error) {
