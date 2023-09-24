@@ -12,7 +12,7 @@ type BookMetadata = {
   symbol: string;
   price: number;
   baseURI: string;
-  priceInDollars?: number; // new
+  priceInDollars?: string; // new
   description?: string; // new
   image?: string; // new
 };
@@ -27,6 +27,10 @@ const BuyPage: NextPage = () => {
     eventName: "BookCreated",
     fromBlock: process.env.NEXT_PUBLIC_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_DEPLOY_BLOCK) : 0n, // replace with your starting block
   });
+
+  function makeGatewayURL(ipfsURI: string): string {
+    return ipfsURI.replace(/^ipfs:\/\//, "https://dweb.link/ipfs/");
+  }
 
   async function fetchMetadata(baseURI: string): Promise<any | null> {
     try {
@@ -72,10 +76,10 @@ const BuyPage: NextPage = () => {
         if (fetchedData) {
           return {
             ...book,
-            priceInDollars: fetchedData.priceInDollars,
+            priceInDollars: fetchedData.price,
             description: fetchedData.description,
             symbol: fetchedData.symbol,
-            image: fetchedData.image,
+            image: makeGatewayURL(fetchedData.image),
           };
         }
         return book;
@@ -110,9 +114,8 @@ const BuyPage: NextPage = () => {
               Symbol: {book.symbol} <br />
               Book URI: {book.baseURI} <br />
               Price in wei: {book.price} wei <br />
-              Price in dollars: ${book.priceInDollars} <br />
-              Image: {book.image} <br />
-              {/* <Image src={book.image} alt="Hamlet Book" width={200} height={300} /> */}
+              Price in dollars: {book.priceInDollars} <br />
+              Image: {book.image} <br />            <img src={book.image} alt="Hamlet Book" width={200} height={300} />
               ----------------------------------------
             </div>
           ))}
