@@ -107,16 +107,17 @@ const BuyPage: NextPage = () => {
       <div className="flex flex-row justify-center gap-x-24">
         <div>
           {booksMetadata.map((book, index) => (
-            <div className="flex " key={index}>
-              Book Address: {book.bookAddress} <br />
-              Book Name: {book.bookName} <br />
-              Description: {book.description} <br />
-              Symbol: {book.symbol} <br />
-              Book URI: {book.baseURI} <br />
-              Price in wei: {book.price} wei <br />
-              Price in dollars: {book.priceInDollars} <br />
-              Image: {book.image} <br />            <img src={book.image} alt="Hamlet Book" width={200} height={300} />
-              ----------------------------------------
+            <div className="flex flex-col items-center mb-10" key={index}>
+              <img className="mb-4" src={book.image} alt="Hamlet Book" width={200} height={300} />
+              <strong>Book Address:</strong> {book.bookAddress} <br />
+              <strong>Book Name:</strong> {book.bookName} <br />
+              <strong>Description:</strong> {book.description} <br />
+              {/* Symbol: {book.symbol} <br /> */}
+              {/* Book URI: {book.baseURI} <br /> */}
+              {/* Price in wei: {book.price} wei <br /> */}
+              <strong>Price:</strong> {book.priceInDollars} <br />
+              {/* Image: {book.image} <br /> */}
+              
             </div>
           ))}
         </div>
