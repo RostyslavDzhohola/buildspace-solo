@@ -50,6 +50,27 @@ contract BookFactory {
       return address(newBook);
     }
 
+    function purchaseBookFromAddress(address bookAddress ) public payable {
+    // Look up the book info from the mapping
+    BookInfo memory bookToPurchase = books[bookAddress];
+
+    // Make sure the book exists
+    require(bookToPurchase.bookAddress != address(0), "Book does not exist");
+
+    // Check if the correct price is sent
+    require(msg.value == bookToPurchase.price, "Incorrect price");
+
+    // Create a new instance from the address
+    Book bookInstance = Book(bookAddress);
+
+    // Call the purchase function on the Book contract
+    uint256 tokenId = bookInstance.purchaseBook{value: msg.value}();
+
+    // Emit an event or log (optional)
+    console.log("Book with token ID %s purchased successfully", tokenId);
+}
+
+
     // Get all book addresses (for frontend to then query each book's info)
     function getAllBookAddresses() public view returns (address[] memory) {
       return bookAddresses;

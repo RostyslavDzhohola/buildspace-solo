@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ethers } from "ethers";
 import type { NextPage } from "next";
 import { toGatewayURL } from "nft.storage";
 import { MetaHeader } from "~~/components/MetaHeader";
@@ -26,6 +27,13 @@ const BuyPage: NextPage = () => {
     contractName: "BookFactory",
     eventName: "BookCreated",
     fromBlock: process.env.NEXT_PUBLIC_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_DEPLOY_BLOCK) : 0n, // replace with your starting block
+  });
+
+  const { writeAsync: buyBookAsync } = useScaffoldContractWrite({
+    contractName: "BookFactory",
+    functionName: "purchaseBookFromAddress",
+    value: "0", // placeholder value
+    args: ["0x0"],
   });
 
   function makeGatewayURL(ipfsURI: string): string {
@@ -84,7 +92,7 @@ const BuyPage: NextPage = () => {
         }
         return book;
       });
-      setBooksMetadata(updatedBooksMetadata);// Update state
+      setBooksMetadata(updatedBooksMetadata); // Update state
     };
 
     if (booksMetadata.length > 0 && !isMetadataFetched) {
@@ -96,7 +104,8 @@ const BuyPage: NextPage = () => {
   }, [booksMetadata, isMetadataFetched]);
 
   useEffect(() => {
-    if (isMetadataFetched) { // Only run this once after metadata has been fetched
+    if (isMetadataFetched) {
+      // Only run this once after metadata has been fetched
       console.log("Fetched Metadata:", booksMetadata);
     }
   }, [isMetadataFetched, booksMetadata]);
@@ -117,7 +126,20 @@ const BuyPage: NextPage = () => {
               {/* Price in wei: {book.price} wei <br /> */}
               <strong>Price:</strong> {book.priceInDollars} <br />
               {/* Image: {book.image} <br /> */}
-              
+              <button
+                className="py-2 px-4 bg-blue-500 text-white rounded hover:scale-110 focus:scale-100"
+                onClick={async () => {
+                  console.log("The type and the price:", typeof book.price, book.price);
+                  if (book.price !== undefined) {
+                    await buyBookAsync({
+                      value: ethers.utils.formatEther(String(book.price)) as any,
+                      args: [book.bookAddress],
+                    });
+                  }
+                }}
+              >
+                Buy Book
+              </button>
             </div>
           ))}
         </div>

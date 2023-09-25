@@ -149,6 +149,19 @@ const contracts = {
               stateMutability: "view",
               type: "function",
             },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "bookAddress",
+                  type: "address",
+                },
+              ],
+              name: "purchaseBookFromAddress",
+              outputs: [],
+              stateMutability: "payable",
+              type: "function",
+            },
           ],
         },
       },

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { storeOnIPFS } from "./helper/nftStorageHelper";
 import type { NextPage } from "next";
+// import { formatEther } from "viem";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { useNativeCurrencyPrice, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
