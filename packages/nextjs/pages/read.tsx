@@ -2,10 +2,29 @@ import { useState } from "react";
 import Image from "next/image";
 import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
+import { useScaffoldContractRead, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
 const ReadingPage: NextPage = () => {
   const [selling, setSelling] = useState(false); // State to track if the NFT has been minted
   const [sellPrice, setSellPrice] = useState(0); // State to track if the NFT has been minted
+  const [ownedBooks, setOwnedBooks] = useState<any[]>([]); // State to track if the NFT has been minted
+
+  const { data: allBookAddresses } = useScaffoldContractRead({
+    contractName: "BookFactory",
+    functionName: "getAllBookAddresses",
+  });
+
+  const {
+    data: purchsedEvnets,
+    isLoading: isLoadingEvents,
+    error: errorReadingEvents,
+  } = useScaffoldEventHistory({
+    contractName: "BookFactory",
+    eventName: "BookPurchased",
+    fromBlock: process.env.NEXT_PUBLIC_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_DEPLOY_BLOCK) : 0n,
+  });
+
+  console.log("purchsed book Evnets:", isLoadingEvents, errorReadingEvents, purchsedEvnets);
 
   const handleSellClick = async () => {
     try {

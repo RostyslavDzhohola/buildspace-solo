@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         BookFactory: {
-          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
           abi: [
             {
               anonymous: false,
@@ -42,6 +42,31 @@ const contracts = {
                 },
               ],
               name: "BookCreated",
+              type: "event",
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "buyer",
+                  type: "address",
+                },
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "bookAddress",
+                  type: "address",
+                },
+                {
+                  indexed: false,
+                  internalType: "uint256",
+                  name: "tokenId",
+                  type: "uint256",
+                },
+              ],
+              name: "BookPurchased",
               type: "event",
             },
             {

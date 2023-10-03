@@ -23,14 +23,13 @@ contract Book is ERC721URIStorage {
         customBaseURI = baseURI_;
     }
 
-
-    function purchaseBook( ) public payable returns (uint256){
+    function purchaseBook(address buyer ) public payable returns (uint256){
         require(msg.value == bookPrice, "Incorrect price");
 
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
 
-		_safeMint(msg.sender, tokenId); // Minting the NFT to the sender of the transaction
+		_safeMint(buyer, tokenId); // Minting the NFT to the sender of the transaction
 
         return tokenId;
     }

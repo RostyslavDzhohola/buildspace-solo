@@ -21,6 +21,7 @@ contract BookFactory {
 
     // Event to emit when a new Book contract is deployed
     event BookCreated(address indexed bookAddress, string tokenName, string symbol, uint256 price, string baseURI);
+    event BookPurchased(address indexed buyer, address indexed bookAddress, uint256 tokenId);
 
     function createBook(string memory name, string memory symbol, uint256 bookPrice, string memory baseURI) public returns (address) {
       console.log("Book's baseURI is %s", baseURI);
@@ -64,7 +65,8 @@ contract BookFactory {
     Book bookInstance = Book(bookAddress);
 
     // Call the purchase function on the Book contract
-    uint256 tokenId = bookInstance.purchaseBook{value: msg.value}();
+    uint256 tokenId = bookInstance.purchaseBook{value: msg.value}(msg.sender);
+    emit BookPurchased(msg.sender, bookAddress, tokenId);
 
     // Emit an event or log (optional)
     console.log("Book with token ID %s purchased successfully", tokenId);
