@@ -1,18 +1,16 @@
 import { useState } from "react";
 import Image from "next/image";
 import type { NextPage } from "next";
+import { useAccount } from "wagmi";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { useScaffoldContractRead, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
 const ReadingPage: NextPage = () => {
+  const { address } = useAccount();
   const [selling, setSelling] = useState(false); // State to track if the NFT has been minted
   const [sellPrice, setSellPrice] = useState(0); // State to track if the NFT has been minted
   const [ownedBooks, setOwnedBooks] = useState<any[]>([]); // State to track if the NFT has been minted
-
-  const { data: allBookAddresses } = useScaffoldContractRead({
-    contractName: "BookFactory",
-    functionName: "getAllBookAddresses",
-  });
+  // const [currentAccount, setCurrentAccount] = useState(""); // State to track if the NFT has been minted
 
   const {
     data: purchsedEvnets,
@@ -24,7 +22,12 @@ const ReadingPage: NextPage = () => {
     fromBlock: process.env.NEXT_PUBLIC_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_DEPLOY_BLOCK) : 0n,
   });
 
-  console.log("purchsed book Evnets:", isLoadingEvents, errorReadingEvents, purchsedEvnets);
+  const purchasedEventsForCurrentUser = purchsedEvnets?.filter(event => event.args.buyer === address) || [];
+  console.log("Current account is: ", address);
+
+  console.log("Books for current account:", purchasedEventsForCurrentUser);
+
+  console.log("All Purchased book events:", purchsedEvnets, isLoadingEvents, errorReadingEvents);
 
   const handleSellClick = async () => {
     try {
@@ -60,7 +63,10 @@ const ReadingPage: NextPage = () => {
         <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet" />
       </MetaHeader>
       <div>
-        <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-start items-center">
+
+        
+
+        {/* <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-start items-center">
           <Image
             src="/hamlet.jpg" // Replace with the actual path to your image
             alt="Hamlet Book" // Provide an appropriate alt description
@@ -77,7 +83,8 @@ const ReadingPage: NextPage = () => {
               Sell
             </button>
           )}
-        </div>
+        </div> */}
+
       </div>
     </>
   );

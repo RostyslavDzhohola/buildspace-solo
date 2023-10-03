@@ -1,26 +1,14 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { ethers } from "ethers";
 import type { NextPage } from "next";
 import { toGatewayURL } from "nft.storage";
+import { BookCard, BookType } from "~~/components/BookCard";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { useScaffoldContractWrite, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
-type BookMetadata = {
-  bookAddress: string;
-  bookName: string;
-  symbol: string;
-  price: number;
-  baseURI: string;
-  priceInDollars?: string; // new
-  description?: string; // new
-  image?: string; // new
-};
-
 const BuyPage: NextPage = () => {
   // const [purchased, setPurchased] = useState(false); // State to track if the NFT has been minted
-  const [booksMetadata, setBooksMetadata] = useState<BookMetadata[]>([]);
+  const [booksMetadata, setBooksMetadata] = useState<BookType[]>([]);
   const [isMetadataFetched, setIsMetadataFetched] = useState(false);
 
   const { data, isLoading, error } = useScaffoldEventHistory({
@@ -116,31 +104,18 @@ const BuyPage: NextPage = () => {
       <div className="flex flex-row justify-center gap-x-24">
         <div>
           {booksMetadata.map((book, index) => (
-            <div className="flex flex-col items-center mb-10" key={index}>
-              <img className="mb-4" src={book.image} alt="Hamlet Book" width={200} height={300} />
-              <strong>Book Address:</strong> {book.bookAddress} <br />
-              <strong>Book Name:</strong> {book.bookName} <br />
-              <strong>Description:</strong> {book.description} <br />
-              {/* Symbol: {book.symbol} <br /> */}
-              {/* Book URI: {book.baseURI} <br /> */}
-              {/* Price in wei: {book.price} wei <br /> */}
-              <strong>Price:</strong> {book.priceInDollars} <br />
-              {/* Image: {book.image} <br /> */}
-              <button
-                className="py-2 px-4 bg-blue-500 text-white rounded hover:scale-110 focus:scale-100"
-                onClick={async () => {
-                  console.log("The type and the price:", typeof book.price, book.price);
-                  if (book.price !== undefined) {
-                    await buyBookAsync({
-                      value: ethers.utils.formatEther(String(book.price)) as any,
-                      args: [book.bookAddress],
-                    });
-                  }
-                }}
-              >
-                Buy Book
-              </button>
-            </div>
+            <BookCard
+              key={index}
+              book={book}
+              buyBook={async (selectedBook: BookType) => {
+                if (selectedBook.price !== undefined) {
+                  await buyBookAsync({
+                    value: ethers.utils.formatEther(String(selectedBook.price)) as any,
+                    args: [selectedBook.bookAddress],
+                  });
+                }
+              }}
+            />
           ))}
         </div>
       </div>
