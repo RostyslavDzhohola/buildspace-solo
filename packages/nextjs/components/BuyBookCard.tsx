@@ -6,19 +6,19 @@ export type BookType = {
   symbol: string;
   price: number;
   baseURI: string;
-  priceInDollars?: string; // new
-  description?: string; // new
-  image?: string; // new
+  priceInDollars?: string;
+  description?: string;
+  image?: string;
 };
 
-interface BookCardProps {
+interface BuyBookCardProps {
   book: BookType;
   buyBook: (book: BookType) => Promise<void>;
 }
 
-export const BookCard: React.FC<BookCardProps> = ({ book, buyBook }) => (
-  <div className="flex flex-col items-center mb-10">
-    {book.image && <Image src={book.image} alt="Book" width={200} height={300} className="mb-4" />}
+export const BuyBookCard: React.FC<BuyBookCardProps> = ({ book, buyBook }) => (
+  <div className="flex flex-col items-center mb-10 border border-gray-300 rounded-lg p-4">
+    {book.image && <Image src={book.image} alt={book.bookName + " book"} width={200} height={300} className="mb-4" />}
     <strong>Book Address:</strong> {book.bookAddress} <br />
     <strong>Book Name:</strong> {book.bookName} <br />
     <strong>Description:</strong> {book.description} <br />

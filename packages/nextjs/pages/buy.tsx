@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import type { NextPage } from "next";
 import { toGatewayURL } from "nft.storage";
-import { BookCard, BookType } from "~~/components/BookCard";
+import { BookType, BuyBookCard } from "~~/components/BuyBookCard";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { useScaffoldContractWrite, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
@@ -101,23 +101,21 @@ const BuyPage: NextPage = () => {
   return (
     <>
       <MetaHeader title="Mint HamletBook NFT" description="Mint your HamletBook NFT here." />
-      <div className="flex flex-row justify-center gap-x-24">
-        <div>
-          {booksMetadata.map((book, index) => (
-            <BookCard
-              key={index}
-              book={book}
-              buyBook={async (selectedBook: BookType) => {
-                if (selectedBook.price !== undefined) {
-                  await buyBookAsync({
-                    value: ethers.utils.formatEther(String(selectedBook.price)) as any,
-                    args: [selectedBook.bookAddress],
-                  });
-                }
-              }}
-            />
-          ))}
-        </div>
+      <div className="flex flex-wrap justify-center gap-x-24">
+        {booksMetadata.map((book, index) => (
+          <BuyBookCard
+            key={index}
+            book={book}
+            buyBook={async (selectedBook: BookType) => {
+              if (selectedBook.price !== undefined) {
+                await buyBookAsync({
+                  value: ethers.utils.formatEther(String(selectedBook.price)) as any,
+                  args: [selectedBook.bookAddress],
+                });
+              }
+            }}
+          />
+        ))}
       </div>
     </>
   );

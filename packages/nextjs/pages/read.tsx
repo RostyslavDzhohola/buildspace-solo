@@ -1,7 +1,8 @@
 import { useState } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
+import { BookType, ReadBookCard } from "~~/components/BuyBookCard";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { useScaffoldContractRead, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
@@ -24,9 +25,7 @@ const ReadingPage: NextPage = () => {
 
   const purchasedEventsForCurrentUser = purchsedEvnets?.filter(event => event.args.buyer === address) || [];
   console.log("Current account is: ", address);
-
   console.log("Books for current account:", purchasedEventsForCurrentUser);
-
   console.log("All Purchased book events:", purchsedEvnets, isLoadingEvents, errorReadingEvents);
 
   const handleSellClick = async () => {
@@ -52,6 +51,11 @@ const ReadingPage: NextPage = () => {
     }
   };
 
+  const readBook = async (book: BookType) => {
+    // Implement your logic to read the book here
+    alert(`Reading: ${book.bookName}`);
+  };
+
   return (
     <>
       <MetaHeader
@@ -63,28 +67,9 @@ const ReadingPage: NextPage = () => {
         <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet" />
       </MetaHeader>
       <div>
-
-        
-
-        {/* <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-start items-center">
-          <Image
-            src="/hamlet.jpg" // Replace with the actual path to your image
-            alt="Hamlet Book" // Provide an appropriate alt description
-            width={200} // Adjust the width as needed
-            height={300} // Adjust the height as needed
-          />
-          <a href="/books/hamlet.pdf" target="_blank" rel="noopener noreferrer">
-            <button className="btn btn-primary">Read a Book</button>
-          </a>
-          {selling ? (
-            <button className="btn btn-secondary">Selling for: ${sellPrice}</button>
-          ) : (
-            <button className="btn btn-secondary" onClick={handleSellClick}>
-              Sell
-            </button>
-          )}
-        </div> */}
-
+        {purchasedEventsForCurrentUser.map((event, index) => (
+          <ReadBookCard key={index} book={book} readBook={readBook} />
+        ))}
       </div>
     </>
   );
