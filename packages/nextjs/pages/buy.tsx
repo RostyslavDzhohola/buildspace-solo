@@ -94,7 +94,7 @@ const BuyPage: NextPage = () => {
   useEffect(() => {
     if (isMetadataFetched) {
       // Only run this once after metadata has been fetched
-      console.log("Fetched Metadata:", booksMetadata);
+      console.log(">> Fetched Metadata:", booksMetadata);
     }
   }, [isMetadataFetched, booksMetadata]);
 

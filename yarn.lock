@@ -13964,6 +13964,7 @@ __metadata:
   dependencies:
     husky: ^8.0.1
     lint-staged: ^13.0.3
+    zustand: ^4.4.2
   languageName: unknown
   linkType: soft
 
@@ -16457,5 +16458,25 @@ __metadata:
     react:
       optional: true
   checksum: fc443abf5bc9deac0d4e375847e7914e44c7ffc9f7f09b60e466cb9bbbcf5a46706bf2f9c8b9e6e6c9a1c5aea0bd6123cbf9fbcd39788ae27d8494d505969ae8
+  languageName: node
+  linkType: hard
+
+"zustand@npm:^4.4.2":
+  version: 4.4.2
+  resolution: "zustand@npm:4.4.2"
+  dependencies:
+    use-sync-external-store: 1.2.0
+  peerDependencies:
+    "@types/react": ">=16.8"
+    immer: ">=9.0"
+    react: ">=16.8"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    immer:
+      optional: true
+    react:
+      optional: true
+  checksum: ca10785e144561c52888578d1a04272ea5b2e6dad8ac6d9ae43b8de9bad5e4864ed8688c277eb4e2f68efd23a59db5e4c6f846eaf874f4f61c9c8271727380b4
   languageName: node
   linkType: hard
