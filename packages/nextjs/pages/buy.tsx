@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import type { NextPage } from "next";
 import { toGatewayURL } from "nft.storage";
-import { BookType, BuyBookCard } from "~~/components/BuyBookCard";
+import { BuyBookCard } from "~~/components/BuyBookCard";
 import { MetaHeader } from "~~/components/MetaHeader";
+import { BookType } from "~~/components/types";
 import { useScaffoldContractWrite, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
 const BuyPage: NextPage = () => {

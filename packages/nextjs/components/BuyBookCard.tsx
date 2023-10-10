@@ -1,15 +1,5 @@
 import Image from "next/image";
-
-export type BookType = {
-  bookAddress: string;
-  bookName: string;
-  symbol: string;
-  price: number;
-  baseURI: string;
-  priceInDollars?: string;
-  description?: string;
-  image?: string;
-};
+import { BookType } from "./types";
 
 interface BuyBookCardProps {
   book: BookType;
@@ -18,7 +8,9 @@ interface BuyBookCardProps {
 
 export const BuyBookCard: React.FC<BuyBookCardProps> = ({ book, buyBook }) => (
   <div className="flex flex-col items-center mb-10 border border-gray-300 rounded-lg p-4">
-    {book.image && <Image src={book.image} alt={book.bookName + " book"} width={200} height={300} className="mb-4" />}
+    {book.image && (
+      <Image priority src={book.image} alt={book.bookName + " book"} width={200} height={300} className="mb-4" />
+    )}
     <strong>Book Address:</strong> {book.bookAddress} <br />
     <strong>Book Name:</strong> {book.bookName} <br />
     <strong>Description:</strong> {book.description} <br />
