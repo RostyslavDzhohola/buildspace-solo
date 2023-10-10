@@ -46,7 +46,7 @@ export const Header = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink href="/buy">
+        <NavLink href="/BuyPage">
           <BookOpenIcon className="h-4 w-4" />
           Buy a Book
         </NavLink>
