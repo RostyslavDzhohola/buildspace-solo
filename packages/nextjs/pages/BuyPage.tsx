@@ -8,17 +8,16 @@ import { BookType } from "~~/components/types";
 import { useScaffoldContractWrite, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
 const BuyPage: NextPage = () => {
-  // const [purchased, setPurchased] = useState(false); // State to track if the NFT has been minted
-
-  // const [booksMetadata, setBooksMetadata] = useState<BookType[]>([]);
-  const booksMetadata = useStore(state => state.booksMetadata); // State to store metadata
-  const setBooksMetadata = useStore(state => state.setBooksMetadata); // Function to update metadata
-
-  // const [isMetadataFetched, setIsMetadataFetched] = useState(false);
-  const isMetadataFetched = useStore(state => state.isMetadataFetched); // State to track if metadata has been fetched
-  const setIsMetadataFetched = useStore(state => state.setIsMetadataFetched); // Function to update metadata
-
-  const fetchAllMetadata = useStore(state => state.fetchAllMetadata);
+  // State to store metadata
+  const booksMetadata = useStore(state => state.booksMetadata);
+  // Function to update metadata
+  const setBooksMetadata = useStore(state => state.setBooksMetadata);
+  // State to track if metadata has been fetched
+  const isMetadataFetched = useStore(state => state.isMetadataFetched);
+  // Function to update metadata fetched state
+  const setIsMetadataFetched = useStore(state => state.setIsMetadataFetched);
+  // Function to fetch the rest of the metadata and merge it with the existing metadata
+  const fetchAllMetadata = useStore(state => state.fetchAllMetadata); 
 
   const { data, isLoading, error } = useScaffoldEventHistory({
     contractName: "BookFactory",
@@ -32,28 +31,6 @@ const BuyPage: NextPage = () => {
     value: "0", // placeholder value
     args: ["0x0"],
   });
-
-  // function makeGatewayURL(ipfsURI: string): string {
-  //   return ipfsURI.replace(/^ipfs:\/\//, "https://dweb.link/ipfs/");
-  // }
-
-  // async function fetchMetadata(baseURI: string): Promise<any | null> {
-  //   try {
-  //     const { href } = await toGatewayURL(baseURI);
-  //     const res = await fetch(href);
-
-  //     if (res.ok) {
-  //       const data: any = await res.json();
-  //       return data;
-  //     } else {
-  //       console.error(`Failed to fetch metadata. Status: ${res.status}`);
-  //       return null;
-  //     }
-  //   } catch (error: any) {
-  //     console.error("Failed to fetch metadata:", error);
-  //     return null;
-  //   }
-  // }
 
   useEffect(() => {
     if (data && !isLoading && !error) {

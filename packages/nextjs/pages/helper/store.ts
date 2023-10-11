@@ -7,15 +7,24 @@ export interface Store {
   isMetadataFetched: boolean;
   setBooksMetadata: (booksMetadata: BookType[]) => void;
   setIsMetadataFetched: (isMetadataFetched: boolean) => void;
-  updateBooksMetadata: (data: any) => void;
+  updateBooksMetadata: (data: BookType[]) => void;
   fetchAllMetadata: (booksMetadata: BookType[]) => Promise<void>;
 }
 
+/**
+ * A custom hook that creates a Zustand store for managing book metadata.
+ * @returns An object containing state and state update functions.
+ */
 const useStore = create<Store>(set => ({
+  // Array of BookType objects containing book metadata
   booksMetadata: [],
+  // Boolean to indicate if metadata has been fetched
   isMetadataFetched: false,
+  // Update booksMetadata state to the value passed in as an argument
   setBooksMetadata: (booksMetadata: BookType[]) => set({ booksMetadata }),
+  // Update isMetadataFetched state to true or false depending on the value passed in as an argument
   setIsMetadataFetched: isMetadataFetched => set({ isMetadataFetched }),
+  // Update state  with new metadata for each book
   updateBooksMetadata: data => {
     const newBooksMetadata = data.map((event: any) => ({
       bookName: event.args.tokenName,
@@ -26,6 +35,7 @@ const useStore = create<Store>(set => ({
     }));
     set({ booksMetadata: newBooksMetadata });
   },
+  // Fetch metadata for each book in booksMetadata array and update state with new metadata fetched from IPFS
   fetchAllMetadata: async booksMetadata => {
     function makeGatewayURL(ipfsURI: string): string {
       return ipfsURI.replace(/^ipfs:\/\//, "https://dweb.link/ipfs/");
@@ -68,7 +78,6 @@ const useStore = create<Store>(set => ({
     });
     set({ booksMetadata: updatedBooksMetadata }); // Update state
     console.log("Zustand test Metadata: ", booksMetadata);
-
   },
 }));
 

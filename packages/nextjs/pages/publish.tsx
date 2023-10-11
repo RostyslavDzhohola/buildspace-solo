@@ -7,6 +7,7 @@ import { MetaHeader } from "~~/components/MetaHeader";
 import { useNativeCurrencyPrice, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 // import { useGlobalState } from "~~/services/store/store";
+// TODO: Fix the double tap issue when the same book is published twice
 
 const Publish: NextPage = () => {
   const [bookFile, setBookFile] = useState<File | null>(null);
