@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import useStore from "./helper/store";
 import { ethers } from "ethers";
 import type { NextPage } from "next";
-import { toGatewayURL } from "nft.storage";
 import { BuyBookCard } from "~~/components/BuyBookCard";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { BookType } from "~~/components/types";
@@ -9,8 +9,16 @@ import { useScaffoldContractWrite, useScaffoldEventHistory } from "~~/hooks/scaf
 
 const BuyPage: NextPage = () => {
   // const [purchased, setPurchased] = useState(false); // State to track if the NFT has been minted
-  const [booksMetadata, setBooksMetadata] = useState<BookType[]>([]);
-  const [isMetadataFetched, setIsMetadataFetched] = useState(false);
+
+  // const [booksMetadata, setBooksMetadata] = useState<BookType[]>([]);
+  const booksMetadata = useStore(state => state.booksMetadata); // State to store metadata
+  const setBooksMetadata = useStore(state => state.setBooksMetadata); // Function to update metadata
+
+  // const [isMetadataFetched, setIsMetadataFetched] = useState(false);
+  const isMetadataFetched = useStore(state => state.isMetadataFetched); // State to track if metadata has been fetched
+  const setIsMetadataFetched = useStore(state => state.setIsMetadataFetched); // Function to update metadata
+
+  const fetchAllMetadata = useStore(state => state.fetchAllMetadata);
 
   const { data, isLoading, error } = useScaffoldEventHistory({
     contractName: "BookFactory",
@@ -25,27 +33,27 @@ const BuyPage: NextPage = () => {
     args: ["0x0"],
   });
 
-  function makeGatewayURL(ipfsURI: string): string {
-    return ipfsURI.replace(/^ipfs:\/\//, "https://dweb.link/ipfs/");
-  }
+  // function makeGatewayURL(ipfsURI: string): string {
+  //   return ipfsURI.replace(/^ipfs:\/\//, "https://dweb.link/ipfs/");
+  // }
 
-  async function fetchMetadata(baseURI: string): Promise<any | null> {
-    try {
-      const { href } = await toGatewayURL(baseURI);
-      const res = await fetch(href);
+  // async function fetchMetadata(baseURI: string): Promise<any | null> {
+  //   try {
+  //     const { href } = await toGatewayURL(baseURI);
+  //     const res = await fetch(href);
 
-      if (res.ok) {
-        const data: any = await res.json();
-        return data;
-      } else {
-        console.error(`Failed to fetch metadata. Status: ${res.status}`);
-        return null;
-      }
-    } catch (error: any) {
-      console.error("Failed to fetch metadata:", error);
-      return null;
-    }
-  }
+  //     if (res.ok) {
+  //       const data: any = await res.json();
+  //       return data;
+  //     } else {
+  //       console.error(`Failed to fetch metadata. Status: ${res.status}`);
+  //       return null;
+  //     }
+  //   } catch (error: any) {
+  //     console.error("Failed to fetch metadata:", error);
+  //     return null;
+  //   }
+  // }
 
   useEffect(() => {
     if (data && !isLoading && !error) {
@@ -60,37 +68,15 @@ const BuyPage: NextPage = () => {
       });
       setBooksMetadata(newBooksMetadata);
     }
-  }, [data, isLoading, error]);
+  }, [data, isLoading, error, setBooksMetadata]);
 
   useEffect(() => {
-    const fetchAllMetadata = async () => {
-      const allPromises = booksMetadata.map(book => fetchMetadata(book.baseURI));
-      const allResults = await Promise.all(allPromises);
-
-      // Merge fetched metadata with existing metadata
-      const updatedBooksMetadata = booksMetadata.map((book, index) => {
-        const fetchedData = allResults[index];
-        if (fetchedData) {
-          return {
-            ...book,
-            priceInDollars: fetchedData.price,
-            description: fetchedData.description,
-            symbol: fetchedData.symbol,
-            image: makeGatewayURL(fetchedData.image),
-          };
-        }
-        return book;
-      });
-      setBooksMetadata(updatedBooksMetadata); // Update state
-    };
-
     if (booksMetadata.length > 0 && !isMetadataFetched) {
-      // Added this condition
-      fetchAllMetadata();
-      setIsMetadataFetched(true);
+      fetchAllMetadata(booksMetadata).then(() => {
+        setIsMetadataFetched(true);
+      });
     }
-    // console.log("Books Metadata Updated:", booksMetadata);
-  }, [booksMetadata, isMetadataFetched]);
+  }, [booksMetadata, isMetadataFetched, setIsMetadataFetched, fetchAllMetadata]);
 
   useEffect(() => {
     if (isMetadataFetched) {
