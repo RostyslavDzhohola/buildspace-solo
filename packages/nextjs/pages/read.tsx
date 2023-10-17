@@ -67,9 +67,9 @@ const ReadingPage: NextPage = () => {
         <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet" />
       </MetaHeader>
       <div>
-        {purchasedEventsForCurrentUser.map((event, index) => (
+        {/* {purchasedEventsForCurrentUser.map((event, index) => (
           <ReadBookCard key={index} book={book} readBook={readBook} />
-        ))}
+        ))} */}
       </div>
     </>
   );
