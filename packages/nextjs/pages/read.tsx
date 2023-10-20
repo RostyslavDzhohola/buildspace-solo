@@ -75,7 +75,7 @@ const ReadingPage: NextPage = () => {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet" />
       </MetaHeader>
-      <div>
+      <div className="flex flex-wrap justify-center gap-x-24">
         {ownedBooksMetadata.map((booksMetadata, index) => (
           <ReadBookCard key={index} book={booksMetadata} readBook={readBook} />
         ))}
