@@ -1,10 +1,10 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useMetadataFetch } from "./helper/useMetadataFetch";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { ReadBookCard } from "~~/components/ReadBookCard";
-import { useScaffoldContractRead, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
+import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 import { BookType } from "~~/types/types";
 
 const ReadingPage: NextPage = () => {
@@ -25,7 +25,9 @@ const ReadingPage: NextPage = () => {
     fromBlock: process.env.NEXT_PUBLIC_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_DEPLOY_BLOCK) : 0n,
   });
 
-  const purchasedEventsForCurrentUser = purchsedEvnets?.filter(event => event.args.buyer === address) || [];
+  const purchasedEventsForCurrentUser = useMemo(() => {
+    return purchsedEvnets?.filter(event => event.args.buyer === address) || [];
+  }, [purchsedEvnets, address]);
 
   console.log("Current account is: ", address);
   console.log("Books for current account:", purchasedEventsForCurrentUser);
@@ -63,7 +65,6 @@ const ReadingPage: NextPage = () => {
     const purchasedBookAddresses = purchasedEventsForCurrentUser.map(event => event.args.bookAddress);
     return booksMetadata.filter(book => purchasedBookAddresses.includes(book.bookAddress));
   }, [purchasedEventsForCurrentUser, booksMetadata]);
-
 
   return (
     <>

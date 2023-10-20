@@ -28,6 +28,8 @@ const BuyPage: NextPage = () => {
             book={book}
             buyBook={async (selectedBook: BookType) => {
               if (selectedBook.price !== undefined) {
+                // sometimes the price is not correct for some reason
+                // TODO: figure out why sometimes the price passed to the function is not correct and I get the revert error
                 await buyBookAsync({
                   value: ethers.utils.formatEther(String(selectedBook.price)) as any,
                   args: [selectedBook.bookAddress],
