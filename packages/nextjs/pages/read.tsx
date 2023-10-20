@@ -1,16 +1,18 @@
-import { useState } from "react";
-// import Image from "next/image";
+import { useMemo, useState } from "react";
+import { useMetadataFetch } from "./helper/useMetadataFetch";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
-import { BookType, ReadBookCard } from "~~/components/BuyBookCard";
 import { MetaHeader } from "~~/components/MetaHeader";
+import { ReadBookCard } from "~~/components/ReadBookCard";
 import { useScaffoldContractRead, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
+import { BookType } from "~~/types/types";
 
 const ReadingPage: NextPage = () => {
   const { address } = useAccount();
-  const [selling, setSelling] = useState(false); // State to track if the NFT has been minted
-  const [sellPrice, setSellPrice] = useState(0); // State to track if the NFT has been minted
-  const [ownedBooks, setOwnedBooks] = useState<any[]>([]); // State to track if the NFT has been minted
+  const { booksMetadata } = useMetadataFetch();
+  // const [selling, setSelling] = useState(false); // State to track if the NFT has been minted
+  // const [sellPrice, setSellPrice] = useState(0); // State to track if the NFT has been minted
+  // const [ownedBooks, setOwnedBooks] = useState<any[]>([]); // State to track if the NFT has been minted
   // const [currentAccount, setCurrentAccount] = useState(""); // State to track if the NFT has been minted
 
   const {
@@ -24,37 +26,44 @@ const ReadingPage: NextPage = () => {
   });
 
   const purchasedEventsForCurrentUser = purchsedEvnets?.filter(event => event.args.buyer === address) || [];
+
   console.log("Current account is: ", address);
   console.log("Books for current account:", purchasedEventsForCurrentUser);
   console.log("All Purchased book events:", purchsedEvnets, isLoadingEvents, errorReadingEvents);
 
-  const handleSellClick = async () => {
-    try {
-      const sellingPrice = window.prompt("How much would you like to sell the book for?", "Enter price");
+  // const handleSellClick = async () => {
+  //   try {
+  //     const sellingPrice = window.prompt("How much would you like to sell the book for?", "Enter price");
 
-      if (sellingPrice !== null) {
-        const parsedPrice = parseInt(sellingPrice, 10); // Parse as base 10 integer
+  //     if (sellingPrice !== null) {
+  //       const parsedPrice = parseInt(sellingPrice, 10); // Parse as base 10 integer
 
-        if (!isNaN(parsedPrice)) {
-          // Check if the parsed value is not NaN
-          setSelling(true);
-          setSellPrice(parsedPrice);
+  //       if (!isNaN(parsedPrice)) {
+  //         // Check if the parsed value is not NaN
+  //         setSelling(true);
+  //         setSellPrice(parsedPrice);
 
-          // Your logic to handle selling here
-          alert(`Selling for: $${parsedPrice}`);
-        } else {
-          alert("Please enter a valid number.");
-        }
-      }
-    } catch (error) {
-      console.log("An error occurred:", error);
-    }
-  };
+  //         // Your logic to handle selling here
+  //         alert(`Selling for: $${parsedPrice}`);
+  //       } else {
+  //         alert("Please enter a valid number.");
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log("An error occurred:", error);
+  //   }
+  // };
 
   const readBook = async (book: BookType) => {
     // Implement your logic to read the book here
     alert(`Reading: ${book.bookName}`);
   };
+
+  const ownedBooksMetadata = useMemo(() => {
+    const purchasedBookAddresses = purchasedEventsForCurrentUser.map(event => event.args.bookAddress);
+    return booksMetadata.filter(book => purchasedBookAddresses.includes(book.bookAddress));
+  }, [purchasedEventsForCurrentUser, booksMetadata]);
+
 
   return (
     <>
@@ -67,8 +76,8 @@ const ReadingPage: NextPage = () => {
         <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet" />
       </MetaHeader>
       <div>
-        {purchasedEventsForCurrentUser.map((event, index) => (
-          <ReadBookCard key={index} book={book} readBook={readBook} />
+        {ownedBooksMetadata.map((booksMetadata, index) => (
+          <ReadBookCard key={index} book={booksMetadata} readBook={readBook} />
         ))}
       </div>
     </>

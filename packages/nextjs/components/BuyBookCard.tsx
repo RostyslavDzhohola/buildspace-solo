@@ -1,15 +1,5 @@
 import Image from "next/image";
-
-export type BookType = {
-  bookAddress: string;
-  bookName: string;
-  symbol: string;
-  price: number;
-  baseURI: string;
-  priceInDollars?: string;
-  description?: string;
-  image?: string;
-};
+import { BookType } from "~~/types/types";
 
 interface BuyBookCardProps {
   book: BookType;
