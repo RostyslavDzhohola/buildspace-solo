@@ -45,7 +45,7 @@ class Lit {
   }
   // File encryption
   async encrypt(file: File, bookAddress: string) {
-    if (!this.litNodeClient) {
+    if (!client) {
       await this.connect();
     }
     const updatedAccessControlConditions = [
@@ -71,7 +71,7 @@ class Lit {
   }
 
   async decrypt(ipfsCid: string) {
-    if (!this.litNodeClient) {
+    if (!client) {
       await this.connect();
     }
 
