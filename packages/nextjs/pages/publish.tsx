@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Lit from "./helper/lit";
 import { storeOnIPFS } from "./helper/nftStorageHelper";
 import type { NextPage } from "next";
 // import { formatEther } from "viem";
@@ -18,6 +19,7 @@ const Publish: NextPage = () => {
   const [bookURI, setBookURI] = useState<string>("");
   const [bookSymbol, setBookSymbol] = useState<string>("");
   const [coverURL, setCoverURL] = useState<string>("");
+  const [bookIsPublishing, setBookIsPublishing] = useState<boolean>(false);
 
   const nativeCurrencyPrice: number = useNativeCurrencyPrice(); // ETH in USD
 
@@ -31,6 +33,7 @@ const Publish: NextPage = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setBookIsPublishing(true);
 
     if (!bookFile || !bookName || !bookDescription) {
       alert("All fields are required");
@@ -38,6 +41,7 @@ const Publish: NextPage = () => {
     }
 
     if (coverFile) {
+      // TODO: Add ipfsCid for encrypted file
       try {
         const coverIPFSURL = await storeOnIPFS(coverFile, bookName, bookDescription, bookSymbol, String(bookPrice));
         setBookURI(coverIPFSURL);
@@ -48,6 +52,7 @@ const Publish: NextPage = () => {
         console.log("book price in ETH converted to bigint", bookPriceInEth);
         console.log("Arguments being passed to createBooAsync", [bookName, bookSymbol, bookPriceInEth, coverIPFSURL]);
         await createBookAsync({ args: [bookName, bookSymbol, bookPriceInEth, coverIPFSURL] });
+        setBookIsPublishing(false);
       } catch (error) {
         console.error("An error occurred while creating the book:", error);
         alert("An error occurred. Please check the console for details.");
@@ -101,6 +106,10 @@ const Publish: NextPage = () => {
       setBookPriceInEth(BigInt(Math.round(tempBookPriceInEth)));
     }
   }, [bookPrice, nativeCurrencyPrice]);
+
+  useEffect(() => {
+    Lit.connect();
+  }, []);
 
   return (
     <>
@@ -200,8 +209,14 @@ const Publish: NextPage = () => {
             <hr />
           </div>
           <div className="flex justify-center">
-            <button type="submit" className="py-2 px-4 bg-blue-500 text-white rounded hover:scale-110 focus:scale-100">
-              Publish
+            <button
+              type="submit"
+              className={`py-2 px-4 bg-blue-500 text-white rounded hover:scale-110 focus:scale-100 ${
+                bookIsPublishing ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={bookIsPublishing}
+            >
+              {bookIsPublishing ? "Publishing..." : "Publish"}
             </button>
           </div>
         </form>

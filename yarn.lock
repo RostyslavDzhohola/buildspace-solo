@@ -1044,11 +1044,11 @@ __metadata:
   linkType: hard
 
 "@ipld/dag-pb@npm:^4.0.0":
-  version: 4.0.5
-  resolution: "@ipld/dag-pb@npm:4.0.5"
+  version: 4.0.6
+  resolution: "@ipld/dag-pb@npm:4.0.6"
   dependencies:
     multiformats: ^12.0.1
-  checksum: e07175cf47c92f3da1d638bbfacfc1c58f278956923ab592fa643dc5512fc50ad75a4d42bdbc567614e5163ab93a58c6a289070c580cbc8981191aa04121fbb3
+  checksum: 4b773a7ef47a87cce623449d83c0886f296e41b1c89c6888026d0ccff4a4a33c742ab6fad7fafee0575a738659a2b205124d484574e43ddedc3e4c8aeb572a77
   languageName: node
   linkType: hard
 
@@ -1315,7 +1315,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-protocol/lit-node-client@npm:^2.2.54":
+"@lit-protocol/lit-node-client@npm:^2.2.61":
   version: 2.9.90
   resolution: "@lit-protocol/lit-node-client@npm:2.9.90"
   dependencies:
@@ -1410,7 +1410,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-protocol/types@npm:2.9.90":
+"@lit-protocol/types@npm:2.9.90, @lit-protocol/types@npm:^2.2.61":
   version: 2.9.90
   resolution: "@lit-protocol/types@npm:2.9.90"
   dependencies:
@@ -1616,12 +1616,12 @@ __metadata:
   linkType: hard
 
 "@multiformats/murmur3@npm:^2.0.0":
-  version: 2.1.6
-  resolution: "@multiformats/murmur3@npm:2.1.6"
+  version: 2.1.7
+  resolution: "@multiformats/murmur3@npm:2.1.7"
   dependencies:
     multiformats: ^12.0.1
     murmurhash3js-revisited: ^3.0.0
-  checksum: 2566118e7243559e517d98cb95fdc494228d2905b0cae34607b49b65e98b956cea7426d135c60851eb286a955da289c3c6de014ea4a5af46b3148e840576e3ed
+  checksum: 9089181c4590f2f87f2402c0aed6737c2ccdb6a50ebd0d3fda41830da367b83672cd83396481392ace17a69aaea4715752458f2bf215240fa6f559766f6cd11b
   languageName: node
   linkType: hard
 
@@ -2455,7 +2455,8 @@ __metadata:
   dependencies:
     "@ethersproject/providers": ^5.7.2
     "@heroicons/react": ^2.0.11
-    "@lit-protocol/lit-node-client": ^2.2.54
+    "@lit-protocol/lit-node-client": ^2.2.61
+    "@lit-protocol/types": ^2.2.61
     "@rainbow-me/rainbowkit": 1.0.8
     "@trivago/prettier-plugin-sort-imports": ^4.1.1
     "@types/node": ^17.0.35
@@ -4879,9 +4880,9 @@ __metadata:
   linkType: hard
 
 "apg-js@npm:^4.1.1":
-  version: 4.2.0
-  resolution: "apg-js@npm:4.2.0"
-  checksum: ab15e3c8bf866a0c3f509831de4dfff6a6fe434ba235529274c107941da7389360ede50f3bf64d660028ff30e24c48f0daac2f5d316c3c5568a30324d43a1c80
+  version: 4.2.1
+  resolution: "apg-js@npm:4.2.1"
+  checksum: 97ada8224d6a49ec50ab006a5f91e1e93d8e387e9a73e2b60c30c84fec8dee794caf2e01298fef02bc38664900dfcb0e263abbd3c3013bddf3d1d349ccfae1c0
   languageName: node
   linkType: hard
 
@@ -11565,9 +11566,9 @@ __metadata:
   linkType: hard
 
 "multiformats@npm:^12.0.1":
-  version: 12.1.1
-  resolution: "multiformats@npm:12.1.1"
-  checksum: cdd19168ea110eec37b6c193bd76dea36c1716de68cf1280f701928d00bbba3aa5e32dc71395091254738a11db47f1acf040f8ddf1688bc4b7cda5d6bbf1eb46
+  version: 12.1.2
+  resolution: "multiformats@npm:12.1.2"
+  checksum: 092c914fc60e647c976da2bfa82236a426f88d1bd278a0b211539f7252b8a316eb24d78a04549111591beaeb83bbcac233f31f91a65450d27de79194d35ae127
   languageName: node
   linkType: hard
 
@@ -15985,9 +15986,9 @@ __metadata:
   linkType: hard
 
 "web-vitals@npm:^3.0.4":
-  version: 3.4.0
-  resolution: "web-vitals@npm:3.4.0"
-  checksum: 6baac515035a82f05623aa6592654af3b5fd8ca0359e368388e147c1376ca00e5f1b2256130f8e96249ee793a437b55615db21ae699d6d400bf2800f676e0114
+  version: 3.5.0
+  resolution: "web-vitals@npm:3.5.0"
+  checksum: d8d760772a7ac33c9569f1d92619a0d2582ffe61bb667b0a2f9de9749ae861842b8a0d83c5126226afb792e63eb57bc461a0cb2e568dce03c81cf6b46677f442
   languageName: node
   linkType: hard
 

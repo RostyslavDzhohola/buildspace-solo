@@ -12,8 +12,6 @@ const ReadingPage: NextPage = () => {
   const { booksMetadata } = useMetadataFetch();
   // const [selling, setSelling] = useState(false); // State to track if the NFT has been minted
   // const [sellPrice, setSellPrice] = useState(0); // State to track if the NFT has been minted
-  // const [ownedBooks, setOwnedBooks] = useState<any[]>([]); // State to track if the NFT has been minted
-  // const [currentAccount, setCurrentAccount] = useState(""); // State to track if the NFT has been minted
 
   const {
     data: purchsedEvnets,
