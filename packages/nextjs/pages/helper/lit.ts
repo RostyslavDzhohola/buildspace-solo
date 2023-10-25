@@ -1,11 +1,13 @@
 import * as LitJsSdk from "@lit-protocol/lit-node-client";
 import { checkAndSignAuthMessage } from "@lit-protocol/lit-node-client";
 
+// TODO: Rewrite this to use server-side authSig
 let authSig: any;
 async function initializeAuthSig() {
   authSig = await checkAndSignAuthMessage({
     chain: "sepolia",
   });
+  console.log("authSig is: ", authSig);
 }
 
 initializeAuthSig();
