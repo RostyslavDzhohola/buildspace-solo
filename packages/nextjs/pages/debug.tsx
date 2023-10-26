@@ -16,7 +16,7 @@ const Debug: NextPage = () => {
     contractNames[0],
   );
 
-  const [bookAddresses, setBookAddresses] = useState<string[]>([]);
+  // const [bookAddresses, setBookAddresses] = useState<string[]>([]);
 
   useEffect(() => {
     if (!contractNames.includes(selectedContract)) {
@@ -24,20 +24,20 @@ const Debug: NextPage = () => {
     }
   }, [selectedContract, setSelectedContract]);
 
-  useScaffoldEventSubscriber({
-    contractName: "BookFactory",
-    eventName: "BookCreated",
-    listener: logs => {
-      logs.forEach(log => {
-        const bookAddress = log.args.bookAddress;
-        if (bookAddress) {
-          setBookAddresses(prevState => [...prevState, bookAddress]);
-          console.log("BookCreated event triggered and here is the book NFT address", bookAddress);
-        }
-      });
-      console.log("BookCreated event triggered", logs);
-    },
-  });
+  // useScaffoldEventSubscriber({
+  //   contractName: "BookFactory",
+  //   eventName: "BookCreated",
+  //   listener: logs => {
+  //     logs.forEach(log => {
+  //       const bookAddress = log.args.bookAddress;
+  //       if (bookAddress) {
+  //         setBookAddresses(prevState => [...prevState, bookAddress]);
+  //         console.log("BookCreated event triggered and here is the book NFT address", bookAddress);
+  //       }
+  //     });
+  //     console.log("BookCreated event triggered", logs);
+  //   },
+  // });
 
   return (
     <>
