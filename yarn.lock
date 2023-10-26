@@ -2475,6 +2475,7 @@ __metadata:
     "@uniswap/v2-sdk": ^3.0.1
     "@vercel/analytics": ^1.0.2
     autoprefixer: ^10.4.12
+    buffer: ^6.0.3
     daisyui: ^3.5.1
     eslint: ^8.15.0
     eslint-config-next: ^13.1.6
