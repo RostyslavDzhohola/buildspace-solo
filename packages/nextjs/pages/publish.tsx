@@ -111,6 +111,12 @@ const Publish: NextPage = () => {
     Lit.connect();
   }, []);
 
+  const connectToLit = async () => {
+    const lit = await Lit.connect();
+    console.log("lit -> ", lit);
+    alert("Button clicked");
+  };
+
   return (
     <>
       <MetaHeader
@@ -121,6 +127,15 @@ const Publish: NextPage = () => {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet" />
       </MetaHeader>
+      <>
+        <button
+          type="button"
+          className="py-2 px-4 bg-blue-500 text-white rounded hover:scale-110 focus:scale-100"
+          onClick={connectToLit}
+        >
+          Connect Lit
+        </button>
+      </>
       <div className="flex justify-center">
         <form className="space-y-4" onSubmit={handleSubmit}>
           <fieldset className="space-y-2">

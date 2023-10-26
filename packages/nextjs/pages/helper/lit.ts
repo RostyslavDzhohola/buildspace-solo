@@ -1,20 +1,19 @@
 import * as LitJsSdk from "@lit-protocol/lit-node-client";
-import { checkAndSignAuthMessage } from "@lit-protocol/lit-node-client";
+// import { checkAndSignAuthMessage } from "@lit-protocol/lit-node-client";
 
-// TODO: Rewrite this to use server-side authSig
-let authSig: any;
-async function initializeAuthSig() {
-  authSig = await checkAndSignAuthMessage({
-    chain: "sepolia",
-  });
-  console.log("authSig is: ", authSig);
-}
+// let authSig: any;
+// async function initializeAuthSig() {
+//   authSig = await checkAndSignAuthMessage({
+//     chain: "sepolia",
+//   });
+//   console.log("authSig is: ", authSig);
+// }
 
-initializeAuthSig();
+// initializeAuthSig();
 
 // Client initialization
 const client = new LitJsSdk.LitNodeClient({
-  // litNetwork: "serrano",
+  // litNetwork: "cayenne",
   // connectTimeout: 40000, // 40 seconds
 }); // pass an empty object as argument
 const chain = "sepolia";
@@ -37,19 +36,33 @@ class Lit {
   litNodeClient: LitJsSdk.LitNodeClient = new LitNodeClient();
 
   async connect() {
+    if (typeof window !== "undefined") {
+      console.log("Running on the client");
+    } else {
+      console.log("Running on the server");
+    }
+
     try {
-      await this.litNodeClient.connect();
+      await client.connect();
+      this.litNodeClient = client;
       console.log("LitNodeClient connected");
     } catch (e) {
-      console.log("LitNodeClient connection failed");
-      console.log(e);
+      console.log("LitNodeClient connection failed: ", e);
     }
   }
+
   // File encryption
-  async encrypt(file: File, bookAddress: string) {
-    if (!client) {
+  async encryptBook(file: File, bookAddress: string) {
+    if (!this.litNodeClient) {
       await this.connect();
     }
+
+    if (typeof window !== "undefined") {
+      console.log("Running on the client");
+    } else {
+      console.log("Running on the server");
+    }
+
     const updatedAccessControlConditions = [
       {
         ...accessControlConditions[0], // Spread the existing properties
@@ -57,6 +70,7 @@ class Lit {
       },
     ];
 
+    const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain });
     // console.log("infuraID is: ", process.env.NEXT_PUBLIC_INFURA_PROJECT_ID);
     const ipfsCid = await LitJsSdk.encryptToIpfs({
       authSig,
@@ -72,11 +86,18 @@ class Lit {
     return ipfsCid;
   }
 
-  async decrypt(ipfsCid: string) {
-    if (!client) {
+  async decryptBook(ipfsCid: string) {
+    if (!this.litNodeClient) {
       await this.connect();
     }
 
+    if (typeof window !== "undefined") {
+      console.log("Running on the client");
+    } else {
+      console.log("Running on the server");
+    }
+
+    const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain });
     const decryptedFile = await LitJsSdk.decryptFromIpfs({
       authSig,
       ipfsCid, // This is returned from the above encryption
