@@ -111,7 +111,7 @@ const Publish: NextPage = () => {
 
   const connectToLit = async () => {
     const lit = await Lit.connect();
-    console.log("lit -> ", lit);
+    console.log("lit called inise the Publish page-> ", lit);
     alert("Button clicked");
   };
 
@@ -131,7 +131,7 @@ const Publish: NextPage = () => {
           className="py-2 px-4 bg-blue-500 text-white rounded hover:scale-110 focus:scale-100"
           onClick={connectToLit}
         >
-          Connect Lit
+          Test Click Connect Lit
         </button>
       </>
       <div className="flex justify-center">
