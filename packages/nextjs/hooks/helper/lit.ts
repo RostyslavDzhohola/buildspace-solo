@@ -53,7 +53,7 @@ class Lit {
   }
 
   // File encryption
-  async encryptBook(file: File, bookAddress: string) {
+  async encryptBook(bookFile: File, bookAddress: string) {
     if (!this.litNodeClient) {
       await this.connect();
     }
@@ -67,18 +67,20 @@ class Lit {
     const updatedAccessControlConditions = [
       {
         ...accessControlConditions[0], // Spread the existing properties
-        bookAddress, // Override the contractAddress property
+        contractAddress: bookAddress, // Override the contractAddress property
       },
     ];
+
+    console.log("Make sure to pass the correct updatedAccessControlConditions: ", updatedAccessControlConditions);
 
     const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain });
     // console.log("infuraID is: ", process.env.NEXT_PUBLIC_INFURA_PROJECT_ID);
     const ipfsCid = await LitJsSdk.encryptToIpfs({
-      authSig,
+      authSig: authSig,
       accessControlConditions: updatedAccessControlConditions,
-      chain,
+      chain: chain,
       //   string: "Encrypt & store on IPFS seamlessly with Lit 😎",
-      file, // If you want to encrypt a file instead of a string
+      file: bookFile, // If you want to encrypt a file instead of a string
       litNodeClient: this.litNodeClient,
       infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || "",
       infuraSecretKey: process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY || "",

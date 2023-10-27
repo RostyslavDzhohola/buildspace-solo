@@ -790,7 +790,7 @@ const contracts = {
       name: "sepolia",
       contracts: {
         BookFactory: {
-          address: "0xc0143772c5b3a738944fc95636ddeccdbed3dae5",
+          address: "0x787178f8a5188fb26F72630fa66B46FfE5e621CA",
           abi: [
             {
               anonymous: false,
@@ -827,6 +827,25 @@ const contracts = {
                 },
               ],
               name: "BookCreated",
+              type: "event",
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "bookAddress",
+                  type: "address",
+                },
+                {
+                  indexed: false,
+                  internalType: "string",
+                  name: "ipfsCid",
+                  type: "string",
+                },
+              ],
+              name: "BookIpfsCidSet",
               type: "event",
             },
             {
@@ -967,9 +986,46 @@ const contracts = {
                   type: "address",
                 },
               ],
+              name: "getBookIpfsCid",
+              outputs: [
+                {
+                  internalType: "string",
+                  name: "",
+                  type: "string",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "bookAddress",
+                  type: "address",
+                },
+              ],
               name: "purchaseBookFromAddress",
               outputs: [],
               stateMutability: "payable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "bookAddress",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "newIpfsCid",
+                  type: "string",
+                },
+              ],
+              name: "setBookIpfsCid",
+              outputs: [],
+              stateMutability: "nonpayable",
               type: "function",
             },
           ],

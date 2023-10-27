@@ -9,7 +9,7 @@ import { useNativeCurrencyPrice, useScaffoldContractWrite } from "~~/hooks/scaff
 
 const Publish: NextPage = () => {
   const [bookFile, setBookFile] = useState<File | null>(null);
-  const [coverFile, setCoverFile] = useState<File | null>(null);
+  const [bookCover, setBookCover] = useState<File | null>(null);
   const [bookName, setBookName] = useState<string>("");
   const [bookDescription, setBookDescription] = useState<string>("");
   const [bookPrice, setBookPrice] = useState<number>(0);
@@ -38,10 +38,10 @@ const Publish: NextPage = () => {
       return;
     }
 
-    if (coverFile) {
+    if (bookCover) {
       // TODO: Add ipfsCid for encrypted file
       try {
-        const coverIPFSURL = await storeOnIPFS(coverFile, bookName, bookDescription, bookSymbol, String(bookPrice));
+        const coverIPFSURL = await storeOnIPFS(bookCover, bookName, bookDescription, bookSymbol, String(bookPrice));
         setBookURI(coverIPFSURL);
         console.log("bookURI is -> ", coverIPFSURL);
         alert(
@@ -84,12 +84,12 @@ const Publish: NextPage = () => {
     if (file) {
       const mimeType = file.type;
       if (mimeType.startsWith("image/jpg") || mimeType.startsWith("image/jpeg") || mimeType.startsWith("image/png")) {
-        setCoverFile(file);
+        setBookCover(file);
         const url = URL.createObjectURL(file);
         setCoverURL(url); // Update state
         console.log("File name: ", file.name);
       } else {
-        setCoverFile(null);
+        setBookCover(null);
         fileInput.value = "";
         console.log("Invalid cover file type.");
         alert("Invalid cover file type. Please upload a JPG, JPEG, or PNG image.");

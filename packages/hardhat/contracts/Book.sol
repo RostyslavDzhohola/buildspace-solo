@@ -11,16 +11,31 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 // YourContract inherits the implementation of ERC721
-contract Book is ERC721URIStorage {
+contract Book is ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdCounter;
     uint256 public bookPrice;
     string internal customBaseURI;
+    string internal bookIpfsCid; // IPFS CID of the encrypted book 
+    bool private isBookIpfsCidSet; // Flag to check if the IPFS CID of the book has been set
 
-
-    constructor(string memory tokenName, string memory symbol, uint256 bookPrice_, string memory baseURI_) ERC721(tokenName, symbol) {
+    constructor(
+        string memory tokenName, 
+        string memory symbol, 
+        uint256 bookPrice_, 
+        string memory baseURI_, 
+        address addressOwner
+    ) ERC721 (tokenName, symbol) {
         bookPrice = bookPrice_;
         customBaseURI = baseURI_;
+        transferOwnership(addressOwner);
+    }
+
+    function setBookIpfsCid(string memory newIpfsCid, address author) external {
+        require(author == owner(), "Not the owner");
+        require(!isBookIpfsCidSet, "bookIpfsCid has already been set");
+        bookIpfsCid = newIpfsCid;
+        isBookIpfsCidSet = true; // Mark bookIpfsCid as set
     }
 
     function purchaseBook(address buyer ) public payable returns (uint256){
@@ -38,5 +53,8 @@ contract Book is ERC721URIStorage {
         return customBaseURI;
     }
 
+    function getBookIpfsCid() external view returns (string memory) {
+        return bookIpfsCid;
+    }
 
 }
