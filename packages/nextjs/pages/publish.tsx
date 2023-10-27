@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Lit from "./helper/lit";
-import { storeOnIPFS } from "./helper/nftStorageHelper";
+import { storeOnIPFS } from "../hooks/helper/nftStorageHelper";
 import type { NextPage } from "next";
 // import { formatEther } from "viem";
 import { MetaHeader } from "~~/components/MetaHeader";
+import Lit from "~~/hooks/helper/lit";
 import { useNativeCurrencyPrice, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
-
-// import { useGlobalState } from "~~/services/store/store";
 
 const Publish: NextPage = () => {
   const [bookFile, setBookFile] = useState<File | null>(null);

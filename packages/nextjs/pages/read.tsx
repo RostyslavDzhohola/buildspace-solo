@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useMetadataFetch } from "./helper/useMetadataFetch";
+import { useMetadataFetch } from "../hooks/helper/useMetadataFetch";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { MetaHeader } from "~~/components/MetaHeader";

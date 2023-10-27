@@ -1,5 +1,5 @@
 // import { useEffect, useState } from "react";
-import { useMetadataFetch } from "./helper/useMetadataFetch";
+import { useMetadataFetch } from "../hooks/helper/useMetadataFetch";
 import { ethers } from "ethers";
 import type { NextPage } from "next";
 // import { toGatewayURL } from "nft.storage";
