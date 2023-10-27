@@ -4,7 +4,7 @@ import { storeOnIPFS } from "../hooks/helper/nftStorageHelper";
 import type { NextPage } from "next";
 // import { formatEther } from "viem";
 import { MetaHeader } from "~~/components/MetaHeader";
-import lit from "~~/hooks/helper/lit";
+import Lit from "~~/hooks/helper/lit";
 import { useNativeCurrencyPrice, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 const Publish: NextPage = () => {
@@ -20,7 +20,6 @@ const Publish: NextPage = () => {
   const [bookIsPublishing, setBookIsPublishing] = useState<boolean>(false);
   const [bookContractAddress, setBookContractAddress] = useState<string>("");
   const [encryptedBookCid, setEncryptedBookCid] = useState<string>("");
-
 
   const nativeCurrencyPrice: number = useNativeCurrencyPrice(); // ETH in USD
 
@@ -49,6 +48,7 @@ const Publish: NextPage = () => {
 
     if (bookCover) {
       try {
+        //------------------------------------Step 1-----------------------------------------------------------
         // First I am setting the book Cover with its' metadata
         const coverIPFSURL = await storeOnIPFS(bookCover, bookName, bookDescription, bookSymbol, String(bookPrice));
         setBookURI(coverIPFSURL);
@@ -56,17 +56,27 @@ const Publish: NextPage = () => {
         alert(
           `Your cover has been uploaded. Cover IPFS URL -> ${coverIPFSURL},  Book name -> ${bookName}, Book description -> ${bookDescription}`,
         );
+        //------------------------------------Step 2------------------------------------------------------------
         // Than I am creating a book in the form of the NFT and pinning baseURI to the NFT
         console.log("book price in ETH converted to bigint", bookPriceInEth);
         console.log("Arguments being passed to createBooAsync", [bookName, bookSymbol, bookPriceInEth, coverIPFSURL]);
-        const bookAddress = await createBookAsync({ args: [bookName, bookSymbol, bookPriceInEth, coverIPFSURL] });
+
+        const bookAddress: any = await createBookAsync({ args: [bookName, bookSymbol, bookPriceInEth, coverIPFSURL] });
+
+        // Check if bookAddress is a string before proceeding
+        if (typeof bookAddress !== "string") {
+          throw new Error("Unexpected type for bookAddress");
+        }
+
         setBookContractAddress(bookAddress);
+        //-------------------------------------Step 3----------------------------------------------------------
         // Than I am encrypting the book and uploading it to IPFS
-        const { cid } = await lit.encryptBook(bookFile, bookAddress);
+        const cid = await Lit.encryptBook(bookFile, bookAddress);
         setEncryptedBookCid(cid);
+        console.log("Encrypted book CID is -> ", cid);
+        //---------------------------------------Step 4---------------------------------------------------------
         // than I will update the created book with the ipfsCid of the encrypted book
         await setBookIpfsCidAsync({ args: [bookContractAddress, encryptedBookCid] });
-
         setBookIsPublishing(false);
       } catch (error) {
         console.error("An error occurred while creating the book:", error);

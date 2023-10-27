@@ -1,4 +1,5 @@
 import * as LitJsSdk from "@lit-protocol/lit-node-client";
+
 // import { checkAndSignAuthMessage } from "@lit-protocol/lit-node-client";
 
 // let authSig: any;
