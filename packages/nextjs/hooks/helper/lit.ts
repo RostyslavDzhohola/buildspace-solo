@@ -14,11 +14,8 @@ import * as LitJsSdk from "@lit-protocol/lit-node-client";
 
 // Client initialization
 const client = new LitJsSdk.LitNodeClient({
-  // litNetwork: "serrano",
-  // debug: true,
-  // connectTimeout: 40000, // 40 seconds
-}); // pass an empty object as argument
-const chain = "sepolia";
+});
+const chain = "optimismGoerli";
 
 const accessControlConditions = [
   {
