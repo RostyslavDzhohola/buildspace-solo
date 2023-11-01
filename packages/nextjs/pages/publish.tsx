@@ -20,26 +20,31 @@ const Publish: NextPage = () => {
   const [bookIsPublishing, setBookIsPublishing] = useState<boolean>(false);
   const [bookContractAddress, setBookContractAddress] = useState<string>("");
   const [encryptedBookCid, setEncryptedBookCid] = useState<string>("");
+  // const [bookAddress, setBookAddress] = useState<any>(null);
 
   const nativeCurrencyPrice: number = useNativeCurrencyPrice(); // ETH in USD
 
   // const { nativeCurrencyPrice, setNativeCurrencyPrice } = useGlobalState();
 
-  const {
-    writeAsync: createBookAsync,
-    data,
-    ...wagmiContractWrite
-  } = useScaffoldContractWrite({
+  const { writeAsync: createBookAsync } = useScaffoldContractWrite({
     contractName: "BookFactory", // Name of your contract
     functionName: "createBook", // Function in your contract responsible for minting
     args: [bookName, bookSymbol, bookPriceInEth, bookURI],
     // blockConfirmations: 3, // Number of blocks to wait before refreshing the UI
+    blockConfirmations: 1,
+    // The callback function to execute when the transaction is confirmed.
+    onBlockConfirmation: txnReceipt => {
+      const bookAddress = txnReceipt.logs?.[0].address;
+      console.log("txnReceipt", txnReceipt);
+      console.log("Book Address", bookAddress);
+      setBookContractAddress(bookAddress);
+    },
   });
 
-  const { writeAsync: setBookIpfsCidAsync } = useScaffoldContractWrite({
+  const { writeAsync: setBookIpfsCidAsync, isMining: ipfsCidMining } = useScaffoldContractWrite({
     contractName: "BookFactory",
     functionName: "setBookIpfsCid",
-    args: [], // Initially empty, we'll set the args dynamically later
+    args: ["", ""], // Initially empty, we'll set the args dynamically later
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -48,6 +53,7 @@ const Publish: NextPage = () => {
 
     if (!bookFile || !bookName || !bookDescription) {
       alert("All fields are required");
+      setBookIsPublishing(false);
       return;
     }
 
@@ -67,23 +73,7 @@ const Publish: NextPage = () => {
         console.log("Arguments being passed to createBooAsync", [bookName, bookSymbol, bookPriceInEth, coverIPFSURL]);
 
         await createBookAsync({ args: [bookName, bookSymbol, bookPriceInEth, coverIPFSURL] });
-        console.log("data is -> ", data);
 
-        if (wagmiContractWrite.isSuccess && data) {
-          // Access the result from the data property
-          const bookAddressString = data.toString(); // Adjust this line based on the actual structure of data
-          setBookContractAddress(bookAddressString);
-        } else {
-          console.error("Unexpected result:", data);
-        }
-        //-------------------------------------Step 3----------------------------------------------------------
-        // Than I am encrypting the book and uploading it to IPFS
-        const cid = await Lit.encryptBook(bookFile, bookContractAddress);
-        setEncryptedBookCid(cid);
-        console.log("Encrypted book CID is -> ", cid);
-        //---------------------------------------Step 4---------------------------------------------------------
-        // than I will update the created book with the ipfsCid of the encrypted book
-        await setBookIpfsCidAsync({ args: [bookContractAddress, encryptedBookCid] });
         setBookIsPublishing(false);
       } catch (error) {
         setBookIsPublishing(false);
@@ -92,7 +82,29 @@ const Publish: NextPage = () => {
       }
     } else {
       alert("Cover file is required");
+      setBookIsPublishing(false);
     }
+  };
+
+  const handleUpdateIpfsCid = async () => {
+    if (bookFile === null) {
+      alert("Book file is required");
+      return;
+    }
+    //------------------Step 3----------------------------------------------------------
+    // Than I am encrypting the book and uploading it to IPFS
+    console.log("bookFile is -> ", bookFile, "bookContractAddress is -> ", bookContractAddress);
+    console.log("IpfsCid before sumbition is -> ", encryptedBookCid);
+    const cid = await Lit.encryptBook(bookFile, bookContractAddress);
+    if (!encryptedBookCid) {
+      alert("IpfsCid is empty: " + encryptedBookCid);
+      return;
+    }
+    setEncryptedBookCid(cid);
+    console.log("Encrypted book CID after sumbition is -> ", cid);
+    //---------------------------------------Step 4---------------------------------------------------------
+    // than I will update the created book with the ipfsCid of the encrypted book
+    await setBookIpfsCidAsync({ args: [bookContractAddress, encryptedBookCid] });
   };
 
   const handleBookFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -169,7 +181,7 @@ const Publish: NextPage = () => {
           Test Click Connect Lit
         </button>
       </>
-      <div className="flex justify-center">
+      <div className="flex justify-center flex-col items-center">
         <form className="space-y-4" onSubmit={handleSubmit}>
           <fieldset className="space-y-2">
             <label className="block text-lg font-medium py-3">
@@ -259,15 +271,26 @@ const Publish: NextPage = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className={`py-2 px-4 bg-blue-500 text-white rounded hover:scale-110 focus:scale-100 ${
+              className={`py-2 px-4 my-1 bg-blue-500 text-white rounded hover:scale-110 focus:scale-100 ${
                 bookIsPublishing ? "opacity-50 cursor-not-allowed" : ""
               }`}
               disabled={bookIsPublishing}
             >
               {bookIsPublishing ? "Publishing..." : "Publish"}
             </button>
+            {/* second button for updating book's ipfsCid */}
           </div>
         </form>
+        <button
+          type="button"
+          className={`py-2 px-4 my-1 bg-blue-500 text-white rounded hover:scale-110 focus:scale-100 ${
+            bookIsPublishing ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={bookIsPublishing}
+          onClick={handleUpdateIpfsCid}
+        >
+          {bookIsPublishing && ipfsCidMining ? "Publishing..." : "Update ipfsCid"}
+        </button>
       </div>
     </>
   );

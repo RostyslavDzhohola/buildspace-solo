@@ -13,8 +13,7 @@ import * as LitJsSdk from "@lit-protocol/lit-node-client";
 // initializeAuthSig();
 
 // Client initialization
-const client = new LitJsSdk.LitNodeClient({
-});
+const client = new LitJsSdk.LitNodeClient({});
 const chain = "optimismGoerli";
 
 const accessControlConditions = [
@@ -62,6 +61,11 @@ class Lit {
       console.log("Running on the server");
     }
 
+    if (!bookAddress) {
+      console.log("Book address is required");
+      throw new Error("Book address is required");
+    }
+
     const updatedAccessControlConditions = [
       {
         ...accessControlConditions[0], // Spread the existing properties
@@ -72,19 +76,31 @@ class Lit {
     console.log("Make sure to pass the correct updatedAccessControlConditions: ", updatedAccessControlConditions);
 
     const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain });
-    // console.log("infuraID is: ", process.env.NEXT_PUBLIC_INFURA_PROJECT_ID);
-    const ipfsCid = await LitJsSdk.encryptToIpfs({
-      authSig: authSig,
-      accessControlConditions: updatedAccessControlConditions,
-      chain: chain,
-      //   string: "Encrypt & store on IPFS seamlessly with Lit 😎",
-      file: bookFile, // If you want to encrypt a file instead of a string
-      litNodeClient: this.litNodeClient,
-      infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || "",
-      infuraSecretKey: process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY || "",
+    console.log("Loging all the accessControl paramenters ", {
+      authSig,
+      bookFile,
+      bookAddress,
+      updatedAccessControlConditions,
+      infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID,
+      infuraSecretKey: process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY,
     });
+    // console.log("infuraID is: ", process.env.NEXT_PUBLIC_INFURA_PROJECT_ID);
+    try {
+      const ipfsCid = await LitJsSdk.encryptToIpfs({
+        authSig: authSig,
+        accessControlConditions: updatedAccessControlConditions,
+        chain: chain,
+        file: bookFile,
+        litNodeClient: this.litNodeClient,
+        infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || "",
+        infuraSecretKey: process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY || "",
+      });
 
-    return ipfsCid;
+      return ipfsCid;
+    } catch (error) {
+      console.error("Error encrypting book:", error);
+      throw new Error("Error encrypting book");
+    }
   }
 
   async decryptBook(ipfsCid: string) {
