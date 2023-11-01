@@ -75,17 +75,26 @@ class Lit {
 
     console.log("Make sure to pass the correct updatedAccessControlConditions: ", updatedAccessControlConditions);
 
-    const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain });
+    const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain: "optimismGoerli" });
     console.log("Loging all the accessControl paramenters ", {
       authSig,
       bookFile,
       bookAddress,
-      updatedAccessControlConditions,
+      accessControlConditions: updatedAccessControlConditions,
       infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID,
       infuraSecretKey: process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY,
     });
     // console.log("infuraID is: ", process.env.NEXT_PUBLIC_INFURA_PROJECT_ID);
     try {
+      console.log("Encrypting book. Paramatars are: ", {
+        authSig: authSig,
+        accessControlConditions: updatedAccessControlConditions,
+        chain: chain,
+        file: bookFile,
+        litNodeClient: this.litNodeClient,
+        infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || "",
+        infuraSecretKey: process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY || "",
+      });
       const ipfsCid = await LitJsSdk.encryptToIpfs({
         authSig: authSig,
         accessControlConditions: updatedAccessControlConditions,
