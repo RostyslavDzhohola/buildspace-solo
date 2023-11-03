@@ -1,20 +1,7 @@
 import * as LitJsSdk from "@lit-protocol/lit-node-client";
 
-// import { checkAndSignAuthMessage } from "@lit-protocol/lit-node-client";
-
-// let authSig: any;
-// async function initializeAuthSig() {
-//   authSig = await checkAndSignAuthMessage({
-//     chain: "sepolia",
-//   });
-//   console.log("authSig is: ", authSig);
-// }
-
-// initializeAuthSig();
-
-// Client initialization
-const client = new LitJsSdk.LitNodeClient({});
-const chain = "optimismGoerli";
+const client = new LitJsSdk.LitNodeClient({ litNetwork: "cayenne" });
+const chain = "goerli";
 
 const accessControlConditions = [
   {
@@ -22,7 +9,7 @@ const accessControlConditions = [
     standardContractType: "ERC721", // ERC721
     chain,
     method: "balanceOf",
-    parameters: [":userAddress"],
+    parameters: [":userAddress", "latest"],
     returnValueTest: {
       comparator: ">",
       value: "0", // at least 1 NFT of the book
@@ -31,7 +18,7 @@ const accessControlConditions = [
 ];
 
 class Lit {
-  litNodeClient: LitJsSdk.LitNodeClient = new LitNodeClient();
+  litNodeClient: LitJsSdk.LitNodeClient = new LitNodeClient({ litNetwork: "cayenne" });
 
   async connect() {
     if (typeof window !== "undefined") {
@@ -65,6 +52,8 @@ class Lit {
       console.log("Book address is required");
       throw new Error("Book address is required");
     }
+    console.log("bookAddress is: ", bookAddress);
+    console.log("bookAddress type is : ", typeof bookAddress);
 
     const updatedAccessControlConditions = [
       {
@@ -73,32 +62,23 @@ class Lit {
       },
     ];
 
-    console.log("Make sure to pass the correct updatedAccessControlConditions: ", updatedAccessControlConditions);
+    console.log("updatedAccessControlConditions are: ", updatedAccessControlConditions);
 
-    const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain: "optimismGoerli" });
-    console.log("Loging all the accessControl paramenters ", {
-      authSig,
-      bookFile,
-      bookAddress,
-      accessControlConditions: updatedAccessControlConditions,
-      infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID,
-      infuraSecretKey: process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY,
-    });
+    const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain: "goerli" });
     // console.log("infuraID is: ", process.env.NEXT_PUBLIC_INFURA_PROJECT_ID);
     try {
-      console.log("Encrypting book. Paramatars are: ", {
-        authSig: authSig,
-        accessControlConditions: updatedAccessControlConditions,
-        chain: chain,
-        file: bookFile,
-        litNodeClient: this.litNodeClient,
-        infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || "",
-        infuraSecretKey: process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY || "",
-      });
+      console.log("authSig:", authSig);
+      console.log("accessControlConditions:", updatedAccessControlConditions);
+      console.log("chain:", chain);
+      console.log("file:", bookFile);
+      console.log("litNodeClient:", this.litNodeClient);
+      console.log("infuraId:", process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || "");
+      console.log("infuraSecretKey:", process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY || "");
       const ipfsCid = await LitJsSdk.encryptToIpfs({
         authSig: authSig,
         accessControlConditions: updatedAccessControlConditions,
-        chain: chain,
+        chain: "goerli",
+        string: "",
         file: bookFile,
         litNodeClient: this.litNodeClient,
         infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || "",
@@ -107,8 +87,13 @@ class Lit {
 
       return ipfsCid;
     } catch (error) {
-      console.error("Error encrypting book:", error);
-      throw new Error("Error encrypting book");
+      if (error instanceof Error) {
+        console.error("Error encrypting book:", error.message);
+        console.error("Error details:", error); // This will log the entire error object
+      } else {
+        console.error("An unknown error occurred:", error);
+      }
+      throw error; // This will re-throw the error, whether it's an instance of Error or not
     }
   }
 

@@ -95,16 +95,32 @@ const Publish: NextPage = () => {
     // Than I am encrypting the book and uploading it to IPFS
     console.log("bookFile is -> ", bookFile, "bookContractAddress is -> ", bookContractAddress);
     console.log("IpfsCid before sumbition is -> ", encryptedBookCid);
-    const cid = await Lit.encryptBook(bookFile, bookContractAddress);
-    if (!encryptedBookCid) {
-      alert("IpfsCid is empty: " + encryptedBookCid);
-      return;
+
+    try {
+      const cid = await Lit.encryptBook(bookFile, bookContractAddress);
+      setEncryptedBookCid(cid);
+      console.log("Encrypted book CID after sumbition is -> ", cid);
+    } catch (error) {
+      console.error("Error encrypting book:", error);
+      alert("An error occurred during book encryption. Please check the console for details.");
+      // Optionally re-throw the error if you want it to propagate
+      throw error;
     }
-    setEncryptedBookCid(cid);
-    console.log("Encrypted book CID after sumbition is -> ", cid);
     //---------------------------------------Step 4---------------------------------------------------------
     // than I will update the created book with the ipfsCid of the encrypted book
-    await setBookIpfsCidAsync({ args: [bookContractAddress, encryptedBookCid] });
+    try {
+      await setBookIpfsCidAsync({ args: [bookContractAddress, encryptedBookCid] });
+    } catch (error) {
+      if (error instanceof Error) {
+        // Now TypeScript knows that `error` is an instance of `Error`
+        console.error("An error occurred while updating the book's ipfsCid:", error);
+        alert("An error occurred. Please check the console for details.");
+        throw new Error("An error occurred while updating the book's ipfsCid: " + error.message);
+      } else {
+        // Handle other types of errors or re-throw them
+        throw error;
+      }
+    }
   };
 
   const handleBookFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

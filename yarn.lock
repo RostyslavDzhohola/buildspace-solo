@@ -1132,34 +1132,34 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-protocol/access-control-conditions@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/access-control-conditions@npm:3.0.14"
+"@lit-protocol/access-control-conditions@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/access-control-conditions@npm:3.0.16"
   dependencies:
-    "@lit-protocol/auth-helpers": 3.0.14
-    "@lit-protocol/constants": 3.0.14
-    "@lit-protocol/misc": 3.0.14
-    "@lit-protocol/types": 3.0.14
-    "@lit-protocol/uint8arrays": 3.0.14
+    "@lit-protocol/auth-helpers": 3.0.16
+    "@lit-protocol/constants": 3.0.16
+    "@lit-protocol/misc": 3.0.16
+    "@lit-protocol/types": 3.0.16
+    "@lit-protocol/uint8arrays": 3.0.16
     ethers: ^5.7.1
     jszip: ^3.10.1
     siwe: ^2.0.5
     siwe-recap: 0.0.2-alpha.0
     tslib: ^2.3.0
-  checksum: e6d490683f479d5965fc3391f4d786bea3d04cb132bfcf1bd8af30fca8d527bcccf1d42ab355610db4c920821e72d6f45656b7fab72aef3ceb33c7c8cd1d03cd
+  checksum: dd1355635056bda149c1b1e04fc71ee8b7bd81d0297448b01486a33829fc310bc5a0476ab21b92b4709e5242644caa964e8208f926a15cfb5074f3c9d3c6c7d6
   languageName: node
   linkType: hard
 
-"@lit-protocol/auth-browser@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/auth-browser@npm:3.0.14"
+"@lit-protocol/auth-browser@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/auth-browser@npm:3.0.16"
   dependencies:
-    "@lit-protocol/auth-helpers": 3.0.14
-    "@lit-protocol/constants": 3.0.14
-    "@lit-protocol/misc": 3.0.14
-    "@lit-protocol/misc-browser": 3.0.14
-    "@lit-protocol/types": 3.0.14
-    "@lit-protocol/uint8arrays": 3.0.14
+    "@lit-protocol/auth-helpers": 3.0.16
+    "@lit-protocol/constants": 3.0.16
+    "@lit-protocol/misc": 3.0.16
+    "@lit-protocol/misc-browser": 3.0.16
+    "@lit-protocol/types": 3.0.16
+    "@lit-protocol/uint8arrays": 3.0.16
     "@walletconnect/ethereum-provider": 2.9.2
     "@walletconnect/modal": 2.6.1
     ethers: ^5.7.1
@@ -1172,153 +1172,153 @@ __metadata:
     tweetnacl-util: ^0.13.3
     util: ^0.12.4
     web-vitals: ^3.0.4
-  checksum: 4a6aa637be9e599bc4acb2f63676b58e29036ab811488c1d356803e072e6cd3b9401cba81c4ab11ee3022289f4d47e3ad9cdfb14b1cf89e10f189a642b2cb506
+  checksum: 87cc6495e756df094d405d06c0d63d4bec13494e99d5b03829301125733e15f77bfc7216a1a2aedeb6c7145afeac90157927500760d04b359dd63bfad55e8bdc
   languageName: node
   linkType: hard
 
-"@lit-protocol/auth-helpers@npm:2.9.90":
-  version: 2.9.90
-  resolution: "@lit-protocol/auth-helpers@npm:2.9.90"
+"@lit-protocol/auth-helpers@npm:3.0.13":
+  version: 3.0.13
+  resolution: "@lit-protocol/auth-helpers@npm:3.0.13"
   dependencies:
     siwe: ^2.0.5
     siwe-recap: 0.0.2-alpha.0
     tslib: ^2.3.0
-  checksum: 1ff093575d5bfeeb39e24f8a67e493ce6f13606e20bd1c837bd9654d6da3d3d4d3d304bc13c596df6b91c7f36c9b6fcf26d2ab000b810fa8ccd6a8830c25375e
+  checksum: 96a67a41a06cfc128bb200ac8925d330ac9e85a9396ee0058baab0eb40042bb6b15485b73ebc1f47a03b2fb3e8416ee3314b8a8899fb405e97d8bf293ba62e21
   languageName: node
   linkType: hard
 
-"@lit-protocol/auth-helpers@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/auth-helpers@npm:3.0.14"
+"@lit-protocol/auth-helpers@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/auth-helpers@npm:3.0.16"
   dependencies:
     siwe: ^2.0.5
     siwe-recap: 0.0.2-alpha.0
     tslib: ^2.3.0
-  checksum: 46e805437383a1e4573ae2786e292cb22028656f8cc6346fc0d81300dc3574be655546588c9e992bbdf264a9195e570ffc05c22ec18e09a094e6a1c4e1861b09
+  checksum: 948e93c3d6a12bf937889cafaf935445b26f2c2763a5c8bf7d97287067f54bdf834b9f52b66019784bbf79fe477b7d5d93db00a48f9fea0da6284c8a9aeec0cd
   languageName: node
   linkType: hard
 
-"@lit-protocol/bls-sdk@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/bls-sdk@npm:3.0.14"
+"@lit-protocol/bls-sdk@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/bls-sdk@npm:3.0.16"
   dependencies:
     pako: ^2.1.0
     tslib: ^2.3.0
-  checksum: d6478b939cab16db997c05a6c728e9e2aa75b43c8573d650a7275c115335c5ab8f80591fe907b4e07d0b76edf1427d7f5558d6628f5422e6e8222ac4cfe49d23
+  checksum: c0e717f8d2089e43361e536aa1982615ecaba227e1ff15a9b0502f3091bd8936f5ec990ff878ee4e15ed55ca37cad0c0bc6f31915bb49ecde1cf61eed66f6c5e
   languageName: node
   linkType: hard
 
-"@lit-protocol/constants@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/constants@npm:3.0.14"
+"@lit-protocol/constants@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/constants@npm:3.0.16"
   dependencies:
-    "@lit-protocol/auth-helpers": 3.0.14
-    "@lit-protocol/types": 3.0.14
+    "@lit-protocol/auth-helpers": 3.0.16
+    "@lit-protocol/types": 3.0.16
     ethers: ^5.7.1
     jszip: ^3.10.1
     siwe: ^2.0.5
     siwe-recap: 0.0.2-alpha.0
     tslib: ^2.3.0
-  checksum: 2288256492160aeae64a56ea9e9259a324c542252a05612b5022aeb15468ad8f143eca3241808d0e3e65db397365fac84dceed3413e8a7c3e45994c1ccdd7308
+  checksum: 5548784331feb297c6d6b41be85f4c90f416fc7c9f684794aaf93a82d25a9c3fbdf7037a6a854b6105cc8b09a66f0586261e589cbade0c6929cd823a542175b8
   languageName: node
   linkType: hard
 
-"@lit-protocol/core@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/core@npm:3.0.14"
+"@lit-protocol/core@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/core@npm:3.0.16"
   dependencies:
-    "@lit-protocol/access-control-conditions": 3.0.14
-    "@lit-protocol/auth-helpers": 3.0.14
-    "@lit-protocol/bls-sdk": 3.0.14
-    "@lit-protocol/constants": 3.0.14
-    "@lit-protocol/crypto": 3.0.14
-    "@lit-protocol/ecdsa-sdk": 3.0.14
-    "@lit-protocol/misc": 3.0.14
-    "@lit-protocol/nacl": 3.0.14
-    "@lit-protocol/types": 3.0.14
-    "@lit-protocol/uint8arrays": 3.0.14
+    "@lit-protocol/access-control-conditions": 3.0.16
+    "@lit-protocol/auth-helpers": 3.0.16
+    "@lit-protocol/bls-sdk": 3.0.16
+    "@lit-protocol/constants": 3.0.16
+    "@lit-protocol/crypto": 3.0.16
+    "@lit-protocol/ecdsa-sdk": 3.0.16
+    "@lit-protocol/misc": 3.0.16
+    "@lit-protocol/nacl": 3.0.16
+    "@lit-protocol/types": 3.0.16
+    "@lit-protocol/uint8arrays": 3.0.16
     ethers: ^5.7.1
     jszip: ^3.10.1
     siwe: ^2.0.5
     siwe-recap: 0.0.2-alpha.0
     tslib: ^2.3.0
-  checksum: 986cf6932112acca35829bb523120ed9b1c3d5d8444ee8d3362105e2c4504ff8c417074e85a31f0a1c7e9011c23611cd8897d9a65becc1b3e87ac471dd7c2305
+  checksum: e0adb3e6875251e3156c018d18d6a5ca1e1102def7c729cc56b4d3d354f651372335f55606a407da42e9180a0415eb121590c7aaf0ed778ec5aeb21a49f58db0
   languageName: node
   linkType: hard
 
-"@lit-protocol/crypto@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/crypto@npm:3.0.14"
+"@lit-protocol/crypto@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/crypto@npm:3.0.16"
   dependencies:
-    "@lit-protocol/auth-helpers": 3.0.14
-    "@lit-protocol/bls-sdk": 3.0.14
-    "@lit-protocol/constants": 3.0.14
-    "@lit-protocol/ecdsa-sdk": 3.0.14
-    "@lit-protocol/misc": 3.0.14
-    "@lit-protocol/nacl": 3.0.14
-    "@lit-protocol/types": 3.0.14
-    "@lit-protocol/uint8arrays": 3.0.14
+    "@lit-protocol/auth-helpers": 3.0.16
+    "@lit-protocol/bls-sdk": 3.0.16
+    "@lit-protocol/constants": 3.0.16
+    "@lit-protocol/ecdsa-sdk": 3.0.16
+    "@lit-protocol/misc": 3.0.16
+    "@lit-protocol/nacl": 3.0.16
+    "@lit-protocol/types": 3.0.16
+    "@lit-protocol/uint8arrays": 3.0.16
     ethers: ^5.7.1
     jszip: ^3.10.1
     siwe: ^2.0.5
     siwe-recap: 0.0.2-alpha.0
     tslib: ^2.3.0
-  checksum: 024edbf30000fc06db9b0cccf0e05a25916d2fd7844754e1d3695dd545ea8bb8d3bbbbee04f9d3e6f1cb5a1468811bb84bbff51b1aa8d145cb282899b20d4963
+  checksum: 4bf5cb7e516132cc9b70eb0a1a93d26d96e2052f5fc058626a6c2a9135101c454a32b07a8f917cd77be06a5bfb4d10a8a9b6ec1fb5c9ca1a3406fbd79595471c
   languageName: node
   linkType: hard
 
-"@lit-protocol/ecdsa-sdk@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/ecdsa-sdk@npm:3.0.14"
+"@lit-protocol/ecdsa-sdk@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/ecdsa-sdk@npm:3.0.16"
   dependencies:
     tslib: ^2.3.0
-  checksum: 462e8ec4a60ff6d0d8c2b9dc846cd313866da18a9efac6338c1db1dfa0df7b371e6a2e0e7b54a6157f402928c712dbc11b2eb7214faff0450052bed1acf30fa8
+  checksum: c2f134e5e1086e96d4a1e6bba7b1fcb954d266d718cd401d3c732fbbd73722459075e125f1655b5e3ef783b6bef747f3a9edd2cc1b144f067f5cac824bda9b93
   languageName: node
   linkType: hard
 
-"@lit-protocol/encryption@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/encryption@npm:3.0.14"
+"@lit-protocol/encryption@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/encryption@npm:3.0.16"
   dependencies:
-    "@lit-protocol/auth-helpers": 3.0.14
-    "@lit-protocol/bls-sdk": 3.0.14
-    "@lit-protocol/constants": 3.0.14
-    "@lit-protocol/crypto": 3.0.14
-    "@lit-protocol/ecdsa-sdk": 3.0.14
-    "@lit-protocol/misc": 3.0.14
-    "@lit-protocol/nacl": 3.0.14
-    "@lit-protocol/types": 3.0.14
-    "@lit-protocol/uint8arrays": 3.0.14
+    "@lit-protocol/auth-helpers": 3.0.16
+    "@lit-protocol/bls-sdk": 3.0.16
+    "@lit-protocol/constants": 3.0.16
+    "@lit-protocol/crypto": 3.0.16
+    "@lit-protocol/ecdsa-sdk": 3.0.16
+    "@lit-protocol/misc": 3.0.16
+    "@lit-protocol/nacl": 3.0.16
+    "@lit-protocol/types": 3.0.16
+    "@lit-protocol/uint8arrays": 3.0.16
     ethers: ^5.7.1
     ipfs-http-client: 56.0.0
     jszip: ^3.10.1
     siwe: ^2.0.5
     siwe-recap: 0.0.2-alpha.0
     tslib: ^2.3.0
-  checksum: 1904e4ccd4aee642f1ea9748807762c7564fb613d1ae82e91d867bd3129e4878e2982e51337897917c14b8e765dd393dc89f2b84d8bd4ab2e7a4429e50e6946f
+  checksum: 2708d9b6087895faf72584af66e91261a0257ab012d3bd380e6583348d92b922239de677b1d2258d7b2987b27d15f18487c329fa70949222a979252104f268b6
   languageName: node
   linkType: hard
 
-"@lit-protocol/lit-node-client-nodejs@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/lit-node-client-nodejs@npm:3.0.14"
+"@lit-protocol/lit-node-client-nodejs@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/lit-node-client-nodejs@npm:3.0.16"
   dependencies:
     "@cosmjs/proto-signing": ^0.30.1
     "@cosmjs/stargate": ^0.30.1
-    "@lit-protocol/access-control-conditions": 3.0.14
-    "@lit-protocol/auth-helpers": 3.0.14
-    "@lit-protocol/bls-sdk": 3.0.14
-    "@lit-protocol/constants": 3.0.14
-    "@lit-protocol/core": 3.0.14
-    "@lit-protocol/crypto": 3.0.14
-    "@lit-protocol/ecdsa-sdk": 3.0.14
-    "@lit-protocol/encryption": 3.0.14
-    "@lit-protocol/lit-third-party-libs": 3.0.14
-    "@lit-protocol/misc": 3.0.14
-    "@lit-protocol/misc-browser": 3.0.14
-    "@lit-protocol/nacl": 3.0.14
-    "@lit-protocol/types": 3.0.14
-    "@lit-protocol/uint8arrays": 3.0.14
+    "@lit-protocol/access-control-conditions": 3.0.16
+    "@lit-protocol/auth-helpers": 3.0.16
+    "@lit-protocol/bls-sdk": 3.0.16
+    "@lit-protocol/constants": 3.0.16
+    "@lit-protocol/core": 3.0.16
+    "@lit-protocol/crypto": 3.0.16
+    "@lit-protocol/ecdsa-sdk": 3.0.16
+    "@lit-protocol/encryption": 3.0.16
+    "@lit-protocol/lit-third-party-libs": 3.0.16
+    "@lit-protocol/misc": 3.0.16
+    "@lit-protocol/misc-browser": 3.0.16
+    "@lit-protocol/nacl": 3.0.16
+    "@lit-protocol/types": 3.0.16
+    "@lit-protocol/uint8arrays": 3.0.16
     blockstore-core: ^3.0.0
     ethers: ^5.7.1
     ipfs-http-client: 56.0.0
@@ -1329,32 +1329,32 @@ __metadata:
     siwe: ^2.0.5
     siwe-recap: 0.0.2-alpha.0
     tslib: ^2.3.0
-  checksum: 67a9e47ab49c4a98d9c89041f4f997bf84e789cae52130658538366f5eb23b7b72c1c181b5809df212a0c6705ae674b4a9c73d8a7d5a5ef137630b27cda91a38
+  checksum: c64859df1d8b273719b514950da307c018c00323bbcf93338e31f9a6f1ee95538317651fb4d5d13e19c5796140cf5008d9c49a3b5764af36abd0cf122b7bd91c
   languageName: node
   linkType: hard
 
-"@lit-protocol/lit-node-client@npm:^3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/lit-node-client@npm:3.0.14"
+"@lit-protocol/lit-node-client@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/lit-node-client@npm:3.0.16"
   dependencies:
     "@cosmjs/proto-signing": ^0.30.1
     "@cosmjs/stargate": ^0.30.1
-    "@lit-protocol/access-control-conditions": 3.0.14
-    "@lit-protocol/auth-browser": 3.0.14
-    "@lit-protocol/auth-helpers": 3.0.14
-    "@lit-protocol/bls-sdk": 3.0.14
-    "@lit-protocol/constants": 3.0.14
-    "@lit-protocol/core": 3.0.14
-    "@lit-protocol/crypto": 3.0.14
-    "@lit-protocol/ecdsa-sdk": 3.0.14
-    "@lit-protocol/encryption": 3.0.14
-    "@lit-protocol/lit-node-client-nodejs": 3.0.14
-    "@lit-protocol/lit-third-party-libs": 3.0.14
-    "@lit-protocol/misc": 3.0.14
-    "@lit-protocol/misc-browser": 3.0.14
-    "@lit-protocol/nacl": 3.0.14
-    "@lit-protocol/types": 3.0.14
-    "@lit-protocol/uint8arrays": 3.0.14
+    "@lit-protocol/access-control-conditions": 3.0.16
+    "@lit-protocol/auth-browser": 3.0.16
+    "@lit-protocol/auth-helpers": 3.0.16
+    "@lit-protocol/bls-sdk": 3.0.16
+    "@lit-protocol/constants": 3.0.16
+    "@lit-protocol/core": 3.0.16
+    "@lit-protocol/crypto": 3.0.16
+    "@lit-protocol/ecdsa-sdk": 3.0.16
+    "@lit-protocol/encryption": 3.0.16
+    "@lit-protocol/lit-node-client-nodejs": 3.0.16
+    "@lit-protocol/lit-third-party-libs": 3.0.16
+    "@lit-protocol/misc": 3.0.16
+    "@lit-protocol/misc-browser": 3.0.16
+    "@lit-protocol/nacl": 3.0.16
+    "@lit-protocol/types": 3.0.16
+    "@lit-protocol/uint8arrays": 3.0.16
     "@walletconnect/ethereum-provider": 2.9.2
     "@walletconnect/modal": 2.6.1
     blockstore-core: ^3.0.0
@@ -1369,99 +1369,99 @@ __metadata:
     tslib: ^2.3.0
     tweetnacl: ^1.0.3
     tweetnacl-util: ^0.15.1
-  checksum: 5f54a999221a9d10df2a0ce3067980a5b49eb018c07d065a3bf672ee521405f3813009b5fecc31dabd9c95ba6e8b6975e7dc805093cab15ccc61daac87041f5b
+  checksum: b3950b54db97ec313170c5c856dec37b99d754087066171b11bcb37d32e34ad73ce334d8d5047d89fa1c2835066debc5f4bff8fe5abf9c6cf22e7a46512cd08e
   languageName: node
   linkType: hard
 
-"@lit-protocol/lit-third-party-libs@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/lit-third-party-libs@npm:3.0.14"
+"@lit-protocol/lit-third-party-libs@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/lit-third-party-libs@npm:3.0.16"
   dependencies:
     "@cosmjs/proto-signing": ^0.30.1
     "@cosmjs/stargate": ^0.30.1
     blockstore-core: ^3.0.0
     ipfs-unixfs-importer: ^12.0.0
     tslib: ^2.3.0
-  checksum: 4a0312d591b673a760f8e940afed6b1d171c58e8088fb343c54b87c2daa8db1ec03090a8c0f3e9a37efc554b02db3f1d53ee8be3c1abb610b3982b8586572c27
+  checksum: f3008b673c8cd1cb3701aacbb12e568d4e2221154ab1c4c2746085b8c2993db82b1efa48fb8d6f6e9eb841c8b9b1453be07d8de2b31ba128c3d4ddb560d5bccf
   languageName: node
   linkType: hard
 
-"@lit-protocol/misc-browser@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/misc-browser@npm:3.0.14"
+"@lit-protocol/misc-browser@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/misc-browser@npm:3.0.16"
   dependencies:
-    "@lit-protocol/auth-helpers": 3.0.14
-    "@lit-protocol/constants": 3.0.14
-    "@lit-protocol/types": 3.0.14
-    "@lit-protocol/uint8arrays": 3.0.14
+    "@lit-protocol/auth-helpers": 3.0.16
+    "@lit-protocol/constants": 3.0.16
+    "@lit-protocol/types": 3.0.16
+    "@lit-protocol/uint8arrays": 3.0.16
     ethers: ^5.7.1
     jszip: ^3.10.1
     siwe: ^2.0.5
     siwe-recap: 0.0.2-alpha.0
     tslib: ^2.3.0
-  checksum: 98d5b69fdfde4169982c723da46a7a7205dba83272829da72e6c6c5c6a6702285a1f779c3e0fd085f9a04ce6b2be17cb66f2d2f4a236597702d1fbe895245bfb
+  checksum: 74cc4e6c2fec366b5fc6de4a9e057138fffee9d1efd4eadb0dc993d39bf88c217703314fe50f44b85e931734485c221f7ed971165bb2617457937358d096cc82
   languageName: node
   linkType: hard
 
-"@lit-protocol/misc@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/misc@npm:3.0.14"
+"@lit-protocol/misc@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/misc@npm:3.0.16"
   dependencies:
-    "@lit-protocol/auth-helpers": 3.0.14
-    "@lit-protocol/constants": 3.0.14
-    "@lit-protocol/types": 3.0.14
+    "@lit-protocol/auth-helpers": 3.0.16
+    "@lit-protocol/constants": 3.0.16
+    "@lit-protocol/types": 3.0.16
     ethers: ^5.7.1
     jszip: ^3.10.1
     siwe: ^2.0.5
     siwe-recap: 0.0.2-alpha.0
     tslib: ^2.3.0
-  checksum: e590289999e1061f901e6e32f3a28941612202a9d6a766911745d8eeb9c60742fb1ce0f67511f6eba0ab05a773c5edf1cbd5271998a139e0c591d7ae36ce3ae7
+  checksum: d76ff288ebe196432038bc2ebcc8ececa4400e59bbf3177fc92e60df556c7f25f2d4a0c2078529029eb72939591ea03dc5d2438cda4d722af849155e0313ca57
   languageName: node
   linkType: hard
 
-"@lit-protocol/nacl@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/nacl@npm:3.0.14"
+"@lit-protocol/nacl@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/nacl@npm:3.0.16"
   dependencies:
     tslib: ^2.3.0
-  checksum: c77bf6dc9b256019261600ec4773526327c7f88084af718b561f40929bf61b75c385988fea79a77e79a4d4b8502b60c3a759b8d3904e63b03a3caf074e1abf67
+  checksum: 66a5643bb34c2eba783caef04dd9af5a6350bbff44f2bfee495d6729135137985d2bf9176def332a748bb6446989d9a7811e0b7d8d36c14fbc1f2a2fd6fcded8
   languageName: node
   linkType: hard
 
-"@lit-protocol/types@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/types@npm:3.0.14"
+"@lit-protocol/types@npm:3.0.13":
+  version: 3.0.13
+  resolution: "@lit-protocol/types@npm:3.0.13"
   dependencies:
-    "@lit-protocol/auth-helpers": 3.0.14
+    "@lit-protocol/auth-helpers": 3.0.13
     ethers: ^5.7.1
     jszip: ^3.10.1
     siwe: ^2.0.5
     siwe-recap: 0.0.2-alpha.0
     tslib: ^2.3.0
-  checksum: d47b723e628b52e7b0e2f676e7a9d95021eef2aaa0132bc162b1cbc80ccefcebc9cdeed21a0cdaa00f40054855ddc03898177637c7ffc16896e18dfc63c26da7
+  checksum: 312148b03ec98e5b29d05f76d435d91a9cf5046f12eb7a4a0cbadaacf70c1dd91d2719334f359e08e318a53736a502434efc9acc36eba4ce044e847a3558e47b
   languageName: node
   linkType: hard
 
-"@lit-protocol/types@npm:^2.2.61":
-  version: 2.9.90
-  resolution: "@lit-protocol/types@npm:2.9.90"
+"@lit-protocol/types@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/types@npm:3.0.16"
   dependencies:
-    "@lit-protocol/auth-helpers": 2.9.90
+    "@lit-protocol/auth-helpers": 3.0.16
     ethers: ^5.7.1
     jszip: ^3.10.1
     siwe: ^2.0.5
     siwe-recap: 0.0.2-alpha.0
     tslib: ^2.3.0
-  checksum: 444aaa5ad01ad1c73686af1a30360e0c4c543440e74bb848864375cfc6cc5cd6d5ae5004bf0e8e159165a4c78f5ea724bcb15d8c11ae74025a4505fee63d1805
+  checksum: 131cd3da82966b85b84a16785de5522269d86a6abe8717d52ceae50b15a25e39e3d907b08a8e5c073b7c39ba93c638041246975c6f73b1176d16c59ab8cb96e0
   languageName: node
   linkType: hard
 
-"@lit-protocol/uint8arrays@npm:3.0.14":
-  version: 3.0.14
-  resolution: "@lit-protocol/uint8arrays@npm:3.0.14"
+"@lit-protocol/uint8arrays@npm:3.0.16":
+  version: 3.0.16
+  resolution: "@lit-protocol/uint8arrays@npm:3.0.16"
   dependencies:
     tslib: ^2.3.0
-  checksum: ca511d91e4ab00c5c5f863abe80131d7a4b5aef6ce86fba4a157822a38c8dd1851f85bcf281b62f870671a0fb3fe73852a5f86880d9e2003cded1f99d657c895
+  checksum: bd59081ead19b752d623389c1fb859b8bd46a4597b653f69b6c07c68639529c66e07e0599c45402d667e05d8a0c1fc6ed4ee713a72a2ce93bea58c4eac102cfa
   languageName: node
   linkType: hard
 
@@ -2487,8 +2487,8 @@ __metadata:
   dependencies:
     "@ethersproject/providers": ^5.7.2
     "@heroicons/react": ^2.0.11
-    "@lit-protocol/lit-node-client": ^3.0.14
-    "@lit-protocol/types": ^2.2.61
+    "@lit-protocol/lit-node-client": 3.0.16
+    "@lit-protocol/types": 3.0.13
     "@rainbow-me/rainbowkit": 1.0.8
     "@trivago/prettier-plugin-sort-imports": ^4.1.1
     "@types/node": ^17.0.35
