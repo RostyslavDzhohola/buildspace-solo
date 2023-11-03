@@ -7,9 +7,9 @@ const accessControlConditions = [
   {
     contractAddress: "", // bookNFT contract address
     standardContractType: "ERC721", // ERC721
-    chain,
+    chain: "goerli",
     method: "balanceOf",
-    parameters: [":userAddress", "latest"],
+    parameters: [":userAddress"],
     returnValueTest: {
       comparator: ">",
       value: "0", // at least 1 NFT of the book
@@ -18,7 +18,7 @@ const accessControlConditions = [
 ];
 
 class Lit {
-  litNodeClient: LitJsSdk.LitNodeClient = new LitNodeClient({ litNetwork: "cayenne" });
+  litNodeClient: LitJsSdk.LitNodeClient = new LitNodeClient();
 
   async connect() {
     if (typeof window !== "undefined") {
@@ -72,13 +72,13 @@ class Lit {
       console.log("chain:", chain);
       console.log("file:", bookFile);
       console.log("litNodeClient:", this.litNodeClient);
-      console.log("infuraId:", process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || "");
-      console.log("infuraSecretKey:", process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY || "");
+      // console.log("infuraId:", process.env.NEXT_PUBLIC_INFURA_PROJECT_ID);
+      // console.log("infuraSecretKey:", process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY);
       const ipfsCid = await LitJsSdk.encryptToIpfs({
         authSig: authSig,
         accessControlConditions: updatedAccessControlConditions,
         chain: "goerli",
-        string: "",
+        string: "test this string",
         file: bookFile,
         litNodeClient: this.litNodeClient,
         infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || "",

@@ -19,7 +19,7 @@ const Publish: NextPage = () => {
   const [coverURL, setCoverURL] = useState<string>("");
   const [bookIsPublishing, setBookIsPublishing] = useState<boolean>(false);
   const [bookContractAddress, setBookContractAddress] = useState<string>("");
-  const [encryptedBookCid, setEncryptedBookCid] = useState<string>("");
+  const [encryptedBookCid, setEncryptedBookCid] = useState<string>("this is a test cid");
   // const [bookAddress, setBookAddress] = useState<any>(null);
 
   const nativeCurrencyPrice: number = useNativeCurrencyPrice(); // ETH in USD
@@ -86,7 +86,7 @@ const Publish: NextPage = () => {
     }
   };
 
-  const handleUpdateIpfsCid = async () => {
+  const handleGetIpfsCid = async () => {
     if (bookFile === null) {
       alert("Book file is required");
       return;
@@ -98,16 +98,24 @@ const Publish: NextPage = () => {
 
     try {
       const cid = await Lit.encryptBook(bookFile, bookContractAddress);
-      setEncryptedBookCid(cid);
       console.log("Encrypted book CID after sumbition is -> ", cid);
+      setEncryptedBookCid(cid);
     } catch (error) {
       console.error("Error encrypting book:", error);
       alert("An error occurred during book encryption. Please check the console for details.");
       // Optionally re-throw the error if you want it to propagate
       throw error;
     }
+  };
+
+  const handleUpdateIpfsCid = async () => {
+    console.log("encryptedBookCid is -> ", encryptedBookCid);
     //---------------------------------------Step 4---------------------------------------------------------
     // than I will update the created book with the ipfsCid of the encrypted book
+    if (encryptedBookCid === "") {
+      alert("Please get the ipfsCid of the encrypted book first");
+      return;
+    }
     try {
       await setBookIpfsCidAsync({ args: [bookContractAddress, encryptedBookCid] });
     } catch (error) {
@@ -297,6 +305,17 @@ const Publish: NextPage = () => {
             {/* second button for updating book's ipfsCid */}
           </div>
         </form>
+        <button
+          type="button"
+          className={`py-2 px-4 my-1 bg-blue-500 text-white rounded hover:scale-110 focus:scale-100 ${
+            bookIsPublishing ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={bookIsPublishing}
+          onClick={handleGetIpfsCid}
+        >
+          {bookIsPublishing ? "Publishing..." : "Get ipfsCid"}
+        </button>
+        {/* add ipfsCid to NFT */}
         <button
           type="button"
           className={`py-2 px-4 my-1 bg-blue-500 text-white rounded hover:scale-110 focus:scale-100 ${

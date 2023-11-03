@@ -1176,17 +1176,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-protocol/auth-helpers@npm:3.0.13":
-  version: 3.0.13
-  resolution: "@lit-protocol/auth-helpers@npm:3.0.13"
-  dependencies:
-    siwe: ^2.0.5
-    siwe-recap: 0.0.2-alpha.0
-    tslib: ^2.3.0
-  checksum: 96a67a41a06cfc128bb200ac8925d330ac9e85a9396ee0058baab0eb40042bb6b15485b73ebc1f47a03b2fb3e8416ee3314b8a8899fb405e97d8bf293ba62e21
-  languageName: node
-  linkType: hard
-
 "@lit-protocol/auth-helpers@npm:3.0.16":
   version: 3.0.16
   resolution: "@lit-protocol/auth-helpers@npm:3.0.16"
@@ -1425,20 +1414,6 @@ __metadata:
   dependencies:
     tslib: ^2.3.0
   checksum: 66a5643bb34c2eba783caef04dd9af5a6350bbff44f2bfee495d6729135137985d2bf9176def332a748bb6446989d9a7811e0b7d8d36c14fbc1f2a2fd6fcded8
-  languageName: node
-  linkType: hard
-
-"@lit-protocol/types@npm:3.0.13":
-  version: 3.0.13
-  resolution: "@lit-protocol/types@npm:3.0.13"
-  dependencies:
-    "@lit-protocol/auth-helpers": 3.0.13
-    ethers: ^5.7.1
-    jszip: ^3.10.1
-    siwe: ^2.0.5
-    siwe-recap: 0.0.2-alpha.0
-    tslib: ^2.3.0
-  checksum: 312148b03ec98e5b29d05f76d435d91a9cf5046f12eb7a4a0cbadaacf70c1dd91d2719334f359e08e318a53736a502434efc9acc36eba4ce044e847a3558e47b
   languageName: node
   linkType: hard
 
@@ -2488,7 +2463,6 @@ __metadata:
     "@ethersproject/providers": ^5.7.2
     "@heroicons/react": ^2.0.11
     "@lit-protocol/lit-node-client": 3.0.16
-    "@lit-protocol/types": 3.0.13
     "@rainbow-me/rainbowkit": 1.0.8
     "@trivago/prettier-plugin-sort-imports": ^4.1.1
     "@types/node": ^17.0.35
