@@ -1,6 +1,6 @@
 import * as LitJsSdk from "@lit-protocol/lit-node-client";
 
-const client = new LitJsSdk.LitNodeClient({ litNetwork: "cayenne" });
+const client = new LitJsSdk.LitNodeClient({ litNetwork: "jalapeno" });
 const chain = "goerli";
 
 const accessControlConditions = [
@@ -78,9 +78,9 @@ class Lit {
         authSig: authSig,
         accessControlConditions: updatedAccessControlConditions,
         chain: "goerli",
-        string: "test this string",
+        // string: "test this string",
         file: bookFile,
-        litNodeClient: this.litNodeClient,
+        litNodeClient: LitNodeClient,
         infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || "",
         infuraSecretKey: process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY || "",
       });
@@ -112,7 +112,7 @@ class Lit {
     const decryptedFile = await LitJsSdk.decryptFromIpfs({
       authSig,
       ipfsCid, // This is returned from the above encryption
-      litNodeClient: this.litNodeClient,
+      litNodeClient: LitNodeClient,
     });
 
     return decryptedFile;

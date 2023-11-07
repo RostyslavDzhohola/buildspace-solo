@@ -16,7 +16,8 @@
   "dependencies": {
     "@ethersproject/providers": "^5.7.2",
     "@heroicons/react": "^2.0.11",
-    "@lit-protocol/lit-node-client": "3.0.16",
+    "@lit-protocol/lit-node-client": "2.2.61",
+    "@lit-protocol/types": "2.2.61",
     "@rainbow-me/rainbowkit": "1.0.8",
     "@uniswap/sdk-core": "^4.0.1",
     "@uniswap/v2-sdk": "^3.0.1",
