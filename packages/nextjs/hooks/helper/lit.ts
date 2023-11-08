@@ -30,6 +30,7 @@ class Lit {
     try {
       await client.connect();
       this.litNodeClient = client;
+      console.log("LitNodeClient is: ", this.litNodeClient instanceof LitJsSdk.LitNodeClient);
       console.log("LitNodeClient connected");
     } catch (e) {
       console.log("LitNodeClient connection failed: ", e);
@@ -80,7 +81,7 @@ class Lit {
         chain: "goerli",
         // string: "test this string",
         file: bookFile,
-        litNodeClient: LitNodeClient,
+        litNodeClient: this.litNodeClient,
         infuraId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID || "",
         infuraSecretKey: process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY || "",
       });
@@ -88,7 +89,7 @@ class Lit {
       return ipfsCid;
     } catch (error) {
       if (error instanceof Error) {
-        console.error("Error encrypting book:", error.message);
+        // console.error("Error encrypting book:", error.message);
         console.error("Error details:", error); // This will log the entire error object
       } else {
         console.error("An unknown error occurred:", error);
