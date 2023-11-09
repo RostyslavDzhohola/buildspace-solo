@@ -1,6 +1,6 @@
 import * as LitJsSdk from "@lit-protocol/lit-node-client";
 
-const client = new LitJsSdk.LitNodeClient({ litNetwork: "jalapeno" });
+const client = new LitJsSdk.LitNodeClient({ litNetwork: "serrano" }); // serrano , jalapeno
 const chain = "goerli";
 
 const accessControlConditions = [
@@ -11,8 +11,8 @@ const accessControlConditions = [
     method: "balanceOf",
     parameters: [":userAddress"],
     returnValueTest: {
-      comparator: ">",
-      value: "0", // at least 1 NFT of the book
+      comparator: ">=",
+      value: "1", // at least 1 NFT of the book
     },
   },
 ];
@@ -110,13 +110,21 @@ class Lit {
     }
 
     const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain });
-    const decryptedFile = await LitJsSdk.decryptFromIpfs({
-      authSig,
-      ipfsCid, // This is returned from the above encryption
-      litNodeClient: LitNodeClient,
-    });
-
-    return decryptedFile;
+    try {
+      const decryptedFile = await LitJsSdk.decryptFromIpfs({
+        authSig,
+        ipfsCid,
+        litNodeClient: this.litNodeClient,
+      });
+      return decryptedFile;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error decrypting book:", error.message);
+      } else {
+        console.error("An unknown error occurred:", error);
+      }
+      throw error; // This will re-throw the error, whether it's an instance of Error or not
+    }
   }
 }
 

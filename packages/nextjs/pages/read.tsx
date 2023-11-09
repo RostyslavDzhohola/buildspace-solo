@@ -1,10 +1,11 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useMetadataFetch } from "../hooks/helper/useMetadataFetch";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { ReadBookCard } from "~~/components/ReadBookCard";
-import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
+import Lit from "~~/hooks/helper/lit";
+import { useScaffoldContract, useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 import { BookType } from "~~/types/types";
 
 const ReadingPage: NextPage = () => {
@@ -12,6 +13,8 @@ const ReadingPage: NextPage = () => {
   const { booksMetadata } = useMetadataFetch();
   // const [selling, setSelling] = useState(false); // State to track if the NFT has been minted
   // const [sellPrice, setSellPrice] = useState(0); // State to track if the NFT has been minted
+  // const [cid, setCid] = useState("0x0"); // State to save ipfsCid
+  // const [bookUint8Array, setBookUint8Array] = useState<string | Uint8Array>(); // State to save decrypted book
 
   const {
     data: purchsedEvnets,
@@ -22,6 +25,8 @@ const ReadingPage: NextPage = () => {
     eventName: "BookPurchased",
     fromBlock: process.env.NEXT_PUBLIC_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_DEPLOY_BLOCK) : 0n,
   });
+
+  const { data: BookFactory } = useScaffoldContract({ contractName: "BookFactory" });
 
   const purchasedEventsForCurrentUser = useMemo(() => {
     return purchsedEvnets?.filter(event => event.args.buyer === address) || [];
@@ -55,8 +60,21 @@ const ReadingPage: NextPage = () => {
   // };
 
   const readBook = async (book: BookType) => {
-    // Implement your logic to read the book here
-    alert(`Reading: ${book.bookName}`);
+    try {
+      const ipfsCid = await BookFactory?.read.getBookIpfsCid([book.bookAddress]);
+      if (ipfsCid !== undefined) {
+        alert(`Reading: ${book.bookName}, and address is ${book.bookAddress} and ipfsCid is ${ipfsCid}`);
+
+        // Since you have the ipfsCid here, use it directly
+        console.log("Decrypting book with CID:", ipfsCid);
+        const decryptedBook = await Lit.decryptBook(ipfsCid);
+        console.log("Decrypted book:", decryptedBook);
+      } else {
+        alert("Failed to fetch IPFS CID.");
+      }
+    } catch (error) {
+      console.error("Error fetching IPFS CID or decrypting book:", error);
+    }
   };
 
   const ownedBooksMetadata = useMemo(() => {
