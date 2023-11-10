@@ -19,7 +19,7 @@ const accessControlConditions = [
 
 class Lit {
   litNodeClient: LitJsSdk.LitNodeClient = new LitNodeClient();
-
+  // TODO: add SIWE verification in order to get the LitNodeClient instance resigned with the Metamask
   async connect() {
     if (typeof window !== "undefined") {
       console.log("Running on the client");
@@ -73,8 +73,8 @@ class Lit {
       console.log("chain:", chain);
       console.log("file:", bookFile);
       console.log("litNodeClient:", this.litNodeClient);
-      // console.log("infuraId:", process.env.NEXT_PUBLIC_INFURA_PROJECT_ID);
-      // console.log("infuraSecretKey:", process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY);
+      console.log("infuraId:", process.env.NEXT_PUBLIC_INFURA_PROJECT_ID);
+      console.log("infuraSecretKey:", process.env.NEXT_PUBLIC_INFURA_API_SECRET_KEY);
       const ipfsCid = await LitJsSdk.encryptToIpfs({
         authSig: authSig,
         accessControlConditions: updatedAccessControlConditions,
