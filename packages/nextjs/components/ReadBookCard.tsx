@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Address } from "~~/components/scaffold-eth";
 import { BookType } from "~~/types/types";
 
 interface ReadBookCardProps {
@@ -9,7 +10,7 @@ interface ReadBookCardProps {
 export const ReadBookCard: React.FC<ReadBookCardProps> = ({ book, readBook }) => (
   <div className="flex flex-col items-center mb-10 border border-gray-300 rounded-lg p-4">
     {book.image && <Image src={book.image} alt={book.bookName + " book"} width={200} height={300} className="mb-4" />}
-    <strong>Book Address:</strong> {book.bookAddress} <br />
+    <Address address={book.bookAddress} />
     <strong>Book Name:</strong> {book.bookName} <br />
     <strong>Description:</strong> {book.description} <br />
     <strong>Price:</strong> {book.priceInDollars} <br />
