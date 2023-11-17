@@ -1,3 +1,5 @@
+https://www.loom.com/share/0b6e9de904a64626b898c2d67e3d8e88?sid=d8349285-aa74-4a93-8c79-058ae4459e4c
+
 # Buildspace Slovo
 
 A very rudimentary look of having book scarcity. 
