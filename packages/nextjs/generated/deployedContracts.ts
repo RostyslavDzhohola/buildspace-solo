@@ -5,7 +5,7 @@ const contracts = {
       name: "goerli",
       contracts: {
         BookFactory: {
-          address: "0x68BA2564e50e7AEe5dB1d4f1AeCD8633FaC005C0",
+          address: "0x8531D6056eEd3006c59faAD78a026886D64d8eAa",
           abi: [
             {
               anonymous: false,

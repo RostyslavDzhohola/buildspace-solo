@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useMetadataFetch } from "../hooks/helper/useMetadataFetch";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
@@ -103,6 +103,10 @@ const ReadingPage: NextPage = () => {
     const purchasedBookAddresses = purchasedEventsForCurrentUser.map(event => event.args.bookAddress);
     return booksMetadata.filter(book => purchasedBookAddresses.includes(book.bookAddress));
   }, [purchasedEventsForCurrentUser, booksMetadata]);
+
+  useEffect(() => {
+    Lit.connect();
+  }, []);
 
   return (
     <>
