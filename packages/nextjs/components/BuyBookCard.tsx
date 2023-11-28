@@ -1,7 +1,6 @@
 import Image from "next/image";
-import { BookType } from "~~/types/types";
 import { Address } from "~~/components/scaffold-eth";
-
+import { BookType } from "~~/types/types";
 
 interface BuyBookCardProps {
   book: BookType;
