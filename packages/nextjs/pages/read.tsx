@@ -16,7 +16,7 @@ const ReadingPage: NextPage = () => {
   // const [cid, setCid] = useState("0x0"); // State to save ipfsCid
   // const [bookUint8Array, setBookUint8Array] = useState<string | Uint8Array>(); // State to save decrypted book
 
-  const { data: purchsedEvnets } = useScaffoldEventHistory({
+  const { data: purchasedEvents } = useScaffoldEventHistory({
     contractName: "BookFactory",
     eventName: "BookPurchased",
     fromBlock: process.env.NEXT_PUBLIC_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_DEPLOY_BLOCK) : 0n,
@@ -25,12 +25,12 @@ const ReadingPage: NextPage = () => {
   const { data: BookFactory } = useScaffoldContract({ contractName: "BookFactory" });
 
   const purchasedEventsForCurrentUser = useMemo(() => {
-    return purchsedEvnets?.filter(event => event.args.buyer === address) || [];
-  }, [purchsedEvnets, address]);
+    return purchasedEvents?.filter(event => event.args.buyer === address) || [];
+  }, [purchasedEvents, address]);
 
   console.log("Current account is: ", address);
   console.log("Books for current account:", purchasedEventsForCurrentUser);
-  // console.log("All Purchased book events:", purchsedEvnets, isLoadingEvents, errorReadingEvents);
+  // console.log("All Purchased book events:", purchasedEvents, isLoadingEvents, errorReadingEvents);
 
   // const handleSellClick = async () => {
   //   try {
