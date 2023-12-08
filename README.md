@@ -1,21 +1,17 @@
 https://www.loom.com/share/0b6e9de904a64626b898c2d67e3d8e88?sid=d8349285-aa74-4a93-8c79-058ae4459e4c
 
-# Buildspace Slovo
+# Slovo
 
-A very rudimentary look of having book scarcity. 
-Here is the link.
-https://slovo-rostyslavdzhohola.vercel.app/mint
+A very rudimentary look for real scarcity of digital books. 
 
 When minting, give 5 minutes before trying to access the book.
-You will need a metamask and connection to Mumbai Testnet 
+You will need a metamask and connection to Goerli Testnet 
 https://chainlist.org/?search=mumbai&testnets=true
-
-Here is the link with the free testnet Matic
-https://mumbaifaucet.com
 
 Ensure your Metamask is connected to the content website because it will not throw the error if you are not connected.
 https://submarine.pinata.cloud/dyHju6Vuiezd75yEE7fJLD 
 
+For now only works on localhost.
 
 ## Requirements
 

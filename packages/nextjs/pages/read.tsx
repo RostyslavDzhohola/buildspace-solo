@@ -16,11 +16,14 @@ const ReadingPage: NextPage = () => {
   // const [cid, setCid] = useState("0x0"); // State to save ipfsCid
   // const [bookUint8Array, setBookUint8Array] = useState<string | Uint8Array>(); // State to save decrypted book
 
+  // ! SIWE issue that needs to be fixed. Current work around is to sign out and sign back in with metamask.
+
   const { data: purchasedEvents } = useScaffoldEventHistory({
     contractName: "BookFactory",
     eventName: "BookPurchased",
     fromBlock: process.env.NEXT_PUBLIC_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_DEPLOY_BLOCK) : 0n,
   });
+  // TODO: add context to have state available globally, API will be exhausted if we keep calling it
 
   const { data: BookFactory } = useScaffoldContract({ contractName: "BookFactory" });
 
